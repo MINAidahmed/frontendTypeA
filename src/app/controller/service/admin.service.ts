@@ -1,20 +1,26 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { State } from '../enums/state.service';
-import { Cadre } from '../model/cadre.model';
-import { documents } from '../model/documents.model';
-import { DonneePro } from '../model/donnee-pro.model';
-import { MailMessage } from '../model/mailmessages.model';
-import { Manifestation } from '../model/manifestation.model';
-import { messages } from '../model/messages.model';
-import { MissionStage } from '../model/mission-stage.model';
-import { NewMontant } from '../model/montants.model';
-import { Soutien } from '../model/soutien.model';
-import { User } from '../model/user.model';
-import { Etablissement } from '../model/Etablissement.model';
-import { Budget } from '../model/Budget.model';
-import { Montant_par_labo } from '../model/Montant_par_labo.model';
+
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {State} from '../enums/state.service';
+import {Cadre} from '../model/cadre.model';
+import {documents} from '../model/documents.model';
+import {DonneePro} from '../model/donnee-pro.model';
+import {MailMessage} from '../model/mailmessages.model';
+import {Manifestation} from '../model/manifestation.model';
+import {messages} from '../model/messages.model';
+import {MissionStage} from '../model/mission-stage.model';
+import {NewMontant} from '../model/montants.model';
+import {Soutien} from '../model/soutien.model';
+import {User} from '../model/user.model';
+import {Document} from '../model/document.model';
+
+import {Etablissement} from "../model/Etablissement.model";
+import {Budget} from "../model/Budget.model";
+import {Montant_par_labo} from "../model/Montant_par_labo.model";
+
+
+
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +28,14 @@ import { Montant_par_labo } from '../model/Montant_par_labo.model';
 export class AdminService {
   private baseUrl = 'http://172.19.177.32:8080/admin';
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+  }
 
   findUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.baseUrl + '/Users'}`);
+  }
+  findUsers_rap(): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.baseUrl + '/usersrap'}`);
   }
 
   findByNom(name: string): Observable<Object> {
@@ -45,6 +55,7 @@ export class AdminService {
   getAllMStages(): Observable<MissionStage[]> {
     return this.httpClient.get<MissionStage[]>(`${this.baseUrl + '/missions'}`);
   }
+
   getAllManifs(): Observable<Manifestation[]> {
     return this.httpClient.get<Manifestation[]>(
       `${this.baseUrl + '/manifestations'}`
@@ -172,6 +183,7 @@ export class AdminService {
       }
     );
   }
+
   save_budget(budget: Budget): Observable<Object> {
     return this.httpClient.post(`${this.baseUrl + '/save_budget'}`, budget);
   }
@@ -194,6 +206,7 @@ export class AdminService {
       `${this.baseUrl + '/getdonne/' + id}`
     );
   }
+
   countusers(): Observable<number> {
     return this.httpClient.get<number>(`${this.baseUrl + '/countusers'}`);
   }
@@ -241,11 +254,13 @@ export class AdminService {
       `${this.baseUrl + '/viewdocsmanif/' + manifId}`
     );
   }
+
   getetablissement(etabId: number): Observable<Etablissement> {
     return this.httpClient.get<Etablissement>(
       `${this.baseUrl + '/getetab/' + etabId}`
     );
   }
+
   get_statistic_etablissement(
     etab: string,
     e2: string,
@@ -302,6 +317,7 @@ export class AdminService {
       }`
     );
   }
+
   get_statistic_graph_mois(
     mois: string,
     e2: string,
@@ -352,15 +368,15 @@ export class AdminService {
       `${this.baseUrl + '/BudgetAnnuelle_object/' + date}`
     );
   }
+
   get_budget_comsommer(date: number): Observable<number> {
     return this.httpClient.get<number>(
       `${this.baseUrl + '/budget_consommer/' + date}`
     );
   }
+
   find_all_montant_par_labo(): Observable<Montant_par_labo[]> {
-    return this.httpClient.get<Montant_par_labo[]>(
-      `${this.baseUrl + '/getmontant_par_labo'}`
-    );
+    return this.httpClient.get<Montant_par_labo[]>(`${this.baseUrl + '/getmontant_par_labo'}`);
   }
 
   findRapport(donneId: number): Observable<any> {

@@ -53,9 +53,11 @@ export class InformationSurDemandeurComponent implements OnInit {
     console.log(this.document.file);
     this.donne.etablissement = this.etab;
     this.userService.saveDonnesPro(this.donne).subscribe((data: any) => {
+      if(this.donneData != null){
       this.userService
         .addDonneProFile(this.donneData.id, this.document)
         .subscribe(() => {});
+      }
       if (data == -1) {
         Swal.fire(
           'Ajout données',
