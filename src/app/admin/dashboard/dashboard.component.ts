@@ -28,7 +28,7 @@ export class DashboardComponent implements OnInit {
 
 this.adminservice.find_all_montant_par_labo().subscribe((elem)=>
 this.montant_par_lab=elem );
-    this.adminservice.get_statistic_etablissement("ENSA-M", "FSSM", "ENCG", "FMP", "FLSH", "FSTG", "FSJES", "FLAM", "ENS", "FP Safi", "ENSA Safi", "EST Safi", "EST Essaouira","FSJESK","FLAM","ESTK").subscribe((Liste_montants_string) => {
+    this.adminservice.get_statistic_etablissement("ENSA-M", "FSSM", "ENCG-M", "FMP-M", "FLSHM", "FSTG", "FSJES", "ENS-M", "FP Safi", "ENSA Safi", "EST Safi", "EST Essaouira","FSJESK","FLAM","ESTK").subscribe((Liste_montants_string) => {
       Liste_montants_string.forEach(elem => {
         if (elem != null) {
           this.number = +elem;
@@ -105,7 +105,7 @@ this.montant_par_lab=elem );
       type: 'bar',
       data: {
 
-        labels: ["ENSA", "FSSM", "ENCG", "FMP", "FLSH", "FSTG", "FSJES", "FLAM", "ENS", "FP Safi", "ENSA Safi", "EST Safi", "EST Essaouira","FSJESK","FLAM","ESTK"],
+        labels: ["ENSA-M", "FSSM", "ENCG-M", "FMP-M", "FLSHM", "FSTG", "FSJES", "ENS-M", "FP Safi", "ENSA Safi", "EST Safi", "EST Essaouira","FSJESK","FLAM","ESTK"],
         datasets: [
           {
 

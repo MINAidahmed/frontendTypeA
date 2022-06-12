@@ -60,8 +60,8 @@ export class InformationSurDemandeurComponent implements OnInit {
       }
       if (data == -1) {
         Swal.fire(
-          'Ajout données',
-          'Vos données professionnels ont ete ajouter',
+          'Ajout données professionnelles',
+          'Vos données professionnelles ont été ajouter',
           'success'
         ).then((result) => {
           if (result.isConfirmed) {
@@ -74,8 +74,8 @@ export class InformationSurDemandeurComponent implements OnInit {
           .subscribe((updated: any) => {
             if (updated == 1) {
               Swal.fire(
-                'Mise a jour données',
-                'Vos données professionnels ont ete mise a jour',
+                'Mise a jour données professionnelles',
+                'Vos données professionnelles ont été mise a jour',
                 'success'
               ).then((result) => {
                 if (result.isConfirmed) {
@@ -84,15 +84,15 @@ export class InformationSurDemandeurComponent implements OnInit {
               });
             } else {
               Swal.fire(
-                'Ajout données',
-                'Vos données professionnels ont ete pas ajouter',
+                'Ajout données professionnelles',
+                'Vos données professionnelles ont été pas ajouter',
                 'error'
               );
             }
           });
       } else {
         Swal.fire(
-          'Ajout données',
+          'Ajout données professionnelles',
           'Veuillez verfiez que un ou plusieur champs sont pas vide',
           'error'
         );

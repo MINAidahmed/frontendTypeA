@@ -48,13 +48,13 @@ export class MailFormComponent implements OnInit {
             this.dialogRef.close();
             Swal.fire(
               'Email envoyer',
-              'Email d acceptation de la demande Mission Stage a ete envoyer avec succes',
+              'Email d acceptation de la demande Mission Stage a été envoyer avec succès',
               'success'
             );
           } else {
             Swal.fire(
               'Erreur',
-              'Email d acceptation ete pas envoyer veuillez verifier les champs',
+              'Email d acceptation été pas envoyer veuillez verifier les champs',
               'error'
             );
           }
@@ -67,13 +67,13 @@ export class MailFormComponent implements OnInit {
             this.dialogRef.close();
             Swal.fire(
               'Email envoyer',
-              'Email d acceptation de la demande Mission Stage a ete envoyer avec succes',
+              'Email d acceptation de la demande Manifestation Stage a été envoyer avec succes',
               'success'
             );
           } else {
             Swal.fire(
               'Erreur',
-              'Email d acceptation ete pas envoyer veuillez verifier les champs',
+              'Email d acceptation été pas envoyer veuillez verifier les champs',
               'error'
             );
           }

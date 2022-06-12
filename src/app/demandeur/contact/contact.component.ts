@@ -21,13 +21,13 @@ export class ContactComponent implements OnInit {
       if (data == 1) {
         Swal.fire(
           'Envoi Message',
-          'Message a été envoyer avec success',
+          'Message est envoyé avec succès',
           'success'
         );
       } else {
         Swal.fire(
           'Envoi Message',
-          'Envoi du message a été interompu veuillez verifier que un ou plusieurs champs sont pas vide',
+          'Envoi du message a été interompus veuillez verifier que un ou plusieurs champs ne sont pas vide',
           'error'
         );
       }

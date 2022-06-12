@@ -39,7 +39,7 @@ export class PostulerManifestationComponent implements OnInit {
     ) {
       Swal.fire(
         'Ajout de manifestation',
-        'Rapport peut pas etre vide si vous avez deja beinificez d un type A',
+        'Rapport ne  peut pas etre vide si vous avez déja beinificez du soutien type A',
         'error'
       );
     } else {
@@ -77,7 +77,7 @@ export class PostulerManifestationComponent implements OnInit {
               } else if (x == '-2') {
                 Swal.fire(
                   'Ajout de manifestation',
-                  'Vous pouvez pas postuler sans remplir vos données profesionnels',
+                  'Vous pouvez pas postuler sans remplir vos données professionnelles',
                   'error'
                 );
               } else {
@@ -90,7 +90,7 @@ export class PostulerManifestationComponent implements OnInit {
                     )).disabled = false;
                     Swal.fire(
                       'Ajout de manifestation',
-                      'Ajout est fait avec success',
+                      'Ajout est faite  avec succès',
                       'success'
                     );
                   });
@@ -167,15 +167,15 @@ export class PostulerManifestationComponent implements OnInit {
     this.userService.generateReport(this.id).subscribe((data) => {
       if (data === 'erreur') {
         Swal.fire(
-          'Inmpression',
-          'L impression a fail veuillez verifier que vous avez sauvegarder votre demande',
+          'Impression',
+          'L impression a échoué veuillez verifier que vous avez sauvegarder votre demande',
           'error'
         );
       } else {
         (<HTMLInputElement>document.getElementById('impbtnM')).disabled = false;
         Swal.fire(
-          'Inmpression',
-          'L impression a ete fait avec success',
+          'Impression',
+          'L impression est faite avec succès',
           'success'
         );
         window.open(data);

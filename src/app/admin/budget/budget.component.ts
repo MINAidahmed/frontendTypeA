@@ -28,7 +28,7 @@ date_actuelle : Date = new Date();
       if(elem == -1){
 
         Swal.fire(
-          'Ajout données',
+          'Ajout de Budget',
           'vérifiez la date entrée',
           'warning'
         )
@@ -36,7 +36,7 @@ date_actuelle : Date = new Date();
       else {
         if(elem == 1){
         Swal.fire(
-          'Ajout données',
+          'Ajout de Budget',
           'votre budget est bien enregistré',
           'success'
         ).then((result) => {
@@ -46,7 +46,7 @@ date_actuelle : Date = new Date();
         });
         }else{
           Swal.fire(
-            'Ajout données',
+            'Ajout de Budget',
             'votre budget est changé',
             'success'
           ).then((result) => {

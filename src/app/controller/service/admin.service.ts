@@ -26,7 +26,7 @@ import {Montant_par_labo} from "../model/Montant_par_labo.model";
   providedIn: 'root',
 })
 export class AdminService {
-  private baseUrl = 'http://172.19.177.32:8080/admin';
+  private baseUrl = 'http://localhost:8000/admin';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -98,7 +98,7 @@ export class AdminService {
 
   AcceptMStage(mStageId: number, params: MailMessage): Observable<number> {
     return this.httpClient.post<number>(
-      `${this.baseUrl + '/acceptstage/' + mStageId}`,
+      `${this.baseUrl + '/acceptstage/' + mStageId }`,
       params
     );
   }
@@ -276,8 +276,7 @@ export class AdminService {
     e12: string,
     e13: string,
     e14: string,
-    e15: string,
-    e16: string
+    e15: string
   ): Observable<string[]> {
     return this.httpClient.get<string[]>(
       `${
@@ -311,9 +310,7 @@ export class AdminService {
         '/' +
         e14 +
         '/' +
-        e15 +
-        '/' +
-        e16
+        e15 
       }`
     );
   }

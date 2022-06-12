@@ -135,13 +135,13 @@ export class DetailManifComponent implements OnInit {
         if (data == 1) {
           Swal.fire(
             'Montants Sauvegarde',
-            'Montants sauvegarder avec success',
+            'Montants sauvegardés avec succès',
             'success'
           );
         } else {
           Swal.fire(
             'Montants Sauvegarde',
-            'Montats sont deja sauvegarder',
+            'Montants sont déja sauvegardés',
             'error'
           );
         }
@@ -155,13 +155,13 @@ export class DetailManifComponent implements OnInit {
         if (data == 'erreur') {
           Swal.fire(
             'Impression',
-            'Impression Erreur veuillez ressayer',
+            'Erreur veuillez ressayer',
             'error'
           );
         } else {
           Swal.fire(
             'Impression',
-            'Impression effectuée avec success',
+            'Impression effectuée avec succès',
             'success'
           );
           window.open(data);

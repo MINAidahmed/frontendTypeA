@@ -111,7 +111,7 @@ export class DetailDemandeComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.adminService.RefuseMStage(this.id).subscribe(() => {});
-        Swal.fire('Refuser', 'La demande a ete refuser ', 'success').then(
+        Swal.fire('Refuser', 'La demande a été refuser ', 'success').then(
           () => {
             this.router.navigate(['/demandes-Manif']);
           }
@@ -119,7 +119,7 @@ export class DetailDemandeComponent implements OnInit {
       } else {
         Swal.fire(
           'Annuler',
-          'La refusation de demande a ete annuler',
+          'La refusation de demande a été annuler',
           'success'
         );
       }
@@ -143,13 +143,13 @@ export class DetailDemandeComponent implements OnInit {
         if (data == 1) {
           Swal.fire(
             'Montants Sauvegarde',
-            'Montants sauvegarder avec success',
+            'Montants sauvegardés avec succès',
             'success'
           );
         } else {
           Swal.fire(
             'Montants Sauvegarde',
-            'Montats sont deja sauvegarder',
+            'Montats sont déja sauvegardés',
             'error'
           );
         }
@@ -163,13 +163,13 @@ export class DetailDemandeComponent implements OnInit {
         if (data == 'erreur') {
           Swal.fire(
             'Impression',
-            'Impression Erreur veuillez ressayer',
+            'Erreur veuillez ressayer',
             'error'
           );
         } else {
           Swal.fire(
             'Impression',
-            'Impression effectuée avec success',
+            'Impression effectuée avec succès',
             'success'
           );
           window.open(data);
