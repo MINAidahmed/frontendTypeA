@@ -44,6 +44,7 @@ export class MailFormComponent implements OnInit {
     if (this.mssgsMail.subject !== undefined) {
       this.adminService.SendMail(this.mssgsMail).subscribe((ret: any) => {
         if (ret == 1) {
+
           this.dialogRef.close();
           Swal.fire(
             'Email envoyer',

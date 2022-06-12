@@ -30,6 +30,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class DemandeursComponent implements OnInit {
   users: User[];
+  users_rap: User[];
 
   constructor(private adminService: AdminService, private router: Router) {}
 
@@ -43,6 +44,7 @@ export class DemandeursComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
+    this.getUsers_rap();
   }
 
   private getUsers() {
@@ -50,7 +52,12 @@ export class DemandeursComponent implements OnInit {
       this.users = data;
     });
   }
-
+private  getUsers_rap()
+{
+  this.adminService.findUsers_rap().subscribe((data)=>{
+    this.users_rap= data;
+  })
+}
   viewUserDetails(id: number) {
     this.router.navigate(['/admin/detail-demandeur', id]);
   }
