@@ -24,7 +24,6 @@ export class MailFormComponent implements OnInit {
   ngOnInit(): void {
     this.mssgsMail.toEmail = this.data.email;
     this.mssgsMail.body = this.body;
-    console.log(this.data.type);
     if (this.data.type) {
       this.adminService
         .getLettreMission(this.data.id)
@@ -41,23 +40,44 @@ export class MailFormComponent implements OnInit {
   }
 
   Valider() {
-    if (this.mssgsMail.subject !== undefined) {
-      this.adminService.SendMail(this.mssgsMail).subscribe((ret: any) => {
-        if (ret == 1) {
-          this.dialogRef.close();
-          Swal.fire(
-            'Email envoyer',
-            'Email d acceptation de la demande Mission Stage a ete envoyer avec succes',
-            'success'
-          );
-        } else {
-          Swal.fire(
-            'Erreur',
-            'Email d acceptation ete pas envoyer veuillez verifier les champs',
-            'error'
-          );
-        }
-      });
+    if (this.mssgsMail.subject !== undefined && this.data.type) {
+      this.adminService
+        .AcceptMStage(this.data.id, this.mssgsMail)
+        .subscribe((ret: any) => {
+          if (ret == 1) {
+            this.dialogRef.close();
+            Swal.fire(
+              'Email envoyer',
+              'Email d acceptation de la demande Mission Stage a ete envoyer avec succes',
+              'success'
+            );
+          } else {
+            Swal.fire(
+              'Erreur',
+              'Email d acceptation ete pas envoyer veuillez verifier les champs',
+              'error'
+            );
+          }
+        });
+    } else if (this.mssgsMail.subject !== undefined && !this.data.type) {
+      this.adminService
+        .AcceptManif(this.data.id, this.mssgsMail)
+        .subscribe((ret: any) => {
+          if (ret == 1) {
+            this.dialogRef.close();
+            Swal.fire(
+              'Email envoyer',
+              'Email d acceptation de la demande Mission Stage a ete envoyer avec succes',
+              'success'
+            );
+          } else {
+            Swal.fire(
+              'Erreur',
+              'Email d acceptation ete pas envoyer veuillez verifier les champs',
+              'error'
+            );
+          }
+        });
     } else {
       document.getElementById('sujet').textContent = 'Sujet peut pas etre vide';
     }
