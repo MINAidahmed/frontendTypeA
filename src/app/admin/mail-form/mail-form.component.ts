@@ -40,7 +40,6 @@ export class MailFormComponent implements OnInit {
   }
 
   Valider() {
-<<<<<<< HEAD
     if (this.mssgsMail.subject !== undefined && this.data.type) {
       this.adminService
         .AcceptMStage(this.data.id, this.mssgsMail)
@@ -49,13 +48,13 @@ export class MailFormComponent implements OnInit {
             this.dialogRef.close();
             Swal.fire(
               'Email envoyer',
-              'Email d acceptation de la demande Mission Stage a ete envoyer avec succes',
+              'Email d acceptation de la demande Mission Stage a été envoyer avec succès',
               'success'
             );
           } else {
             Swal.fire(
               'Erreur',
-              'Email d acceptation ete pas envoyer veuillez verifier les champs',
+              'Email d acceptation été pas envoyer veuillez verifier les champs',
               'error'
             );
           }
@@ -68,37 +67,17 @@ export class MailFormComponent implements OnInit {
             this.dialogRef.close();
             Swal.fire(
               'Email envoyer',
-              'Email d acceptation de la demande Mission Stage a ete envoyer avec succes',
+              'Email d acceptation de la demande Manifestation Stage a été envoyer avec succes',
               'success'
             );
           } else {
             Swal.fire(
               'Erreur',
-              'Email d acceptation ete pas envoyer veuillez verifier les champs',
+              'Email d acceptation été pas envoyer veuillez verifier les champs',
               'error'
             );
           }
         });
-=======
-    if (this.mssgsMail.subject !== undefined) {
-      this.adminService.SendMail(this.mssgsMail).subscribe((ret: any) => {
-        if (ret == 1) {
-
-          this.dialogRef.close();
-          Swal.fire(
-            'Email envoyer',
-            'Email d acceptation de la demande Mission Stage a ete envoyer avec succes',
-            'success'
-          );
-        } else {
-          Swal.fire(
-            'Erreur',
-            'Email d acceptation ete pas envoyer veuillez verifier les champs',
-            'error'
-          );
-        }
-      });
->>>>>>> 10a4db0181e19489960f6ea2e931bc5a9f35a905
     } else {
       document.getElementById('sujet').textContent = 'Sujet peut pas etre vide';
     }
