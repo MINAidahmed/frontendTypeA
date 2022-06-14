@@ -33,6 +33,9 @@ export class AdminService {
   findUsers_rap(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.baseUrl + '/usersrap'}`);
   }
+  findUsers_sans_rap(): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.baseUrl + '/users_sans_rap'}`);
+  }
 
   findByNom(name: string): Observable<Object> {
     return this.httpClient.get(`${this.baseUrl + '/username/'} + name`);
@@ -377,6 +380,30 @@ export class AdminService {
   findRapport(donneId: number): Observable<any> {
     return this.httpClient.get<any>(
       `${this.baseUrl + '/viewlastdoc/' + donneId}`
+    );
+  }
+  users_rapport(): Observable<Object> {
+    return this.httpClient.get(
+      `${this.baseUrl + '/users_rapport'}`,{
+
+        responseType: 'text' as 'json',
+      }
+    );
+  }
+  users_sans_rapport(): Observable<Object> {
+    return this.httpClient.get(
+      `${this.baseUrl + '/users_sans_rapport'}`,{
+
+        responseType: 'text' as 'json',
+      }
+    );
+  }
+  liste_users(): Observable<Object> {
+    return this.httpClient.get(
+      `${this.baseUrl + '/liste_users'}`,{
+
+        responseType: 'text' as 'json',
+      }
     );
   }
 }

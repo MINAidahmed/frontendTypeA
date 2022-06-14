@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { User } from 'src/app/controller/model/user.model';
 import { AdminService } from 'src/app/controller/service/admin.service';
+import Swal from "sweetalert2";
 
 export interface PeriodicElement {
   name: string;
@@ -31,6 +32,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 export class DemandeursComponent implements OnInit {
   users: User[];
   users_rap: User[];
+  users_sans_rap: User[];
 
   constructor(private adminService: AdminService, private router: Router) {}
 
@@ -45,6 +47,7 @@ export class DemandeursComponent implements OnInit {
   ngOnInit(): void {
     this.getUsers();
     this.getUsers_rap();
+    this.getUsers_sans_rap();
   }
 
   private getUsers() {
@@ -58,7 +61,54 @@ private  getUsers_rap()
     this.users_rap= data;
   })
 }
+  private  getUsers_sans_rap()
+  {
+    this.adminService.findUsers_sans_rap().subscribe((data)=>{
+      this.users_sans_rap= data;
+    })
+  }
   viewUserDetails(id: number) {
     this.router.navigate(['/admin/detail-demandeur', id]);
+  }
+
+  liste_demandeur() {
+this.adminService.liste_users().subscribe((data)=>
+
+{
+  if(data != null){
+  Swal.fire(
+    'Impession',
+    'Impession est faite  avec succès ' +
+    'votre fichier est dans Téléchargement ',
+    'success'
+  );}
+});
+  }
+
+  liste_demandeur_rapporst() {
+    this.adminService.users_rapport().subscribe((data) => {
+      if (data != null) {
+        Swal.fire(
+          'Impession',
+          'Impession est faite  avec succès ' +
+          'votre fichier est dans Téléchargement ',
+          'success'
+        );
+      }
+    });
+  }
+
+  liste_demandeur_sans_rapporst() {
+    this.adminService.users_sans_rapport().subscribe((data) => {
+      if (data != null) {
+        Swal.fire(
+          'Impession',
+          'Impession est faite  avec succès ' +
+          'votre fichier est dans Téléchargement ',
+          'success'
+        );
+      }
+    });
+
   }
 }
