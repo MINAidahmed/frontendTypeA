@@ -1,35 +1,31 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { State } from '../enums/state.service';
+import { Cadre } from '../model/cadre.model';
+import { documents } from '../model/documents.model';
+import { DonneePro } from '../model/donnee-pro.model';
+import { MailMessage } from '../model/mailmessages.model';
+import { Manifestation } from '../model/manifestation.model';
+import { messages } from '../model/messages.model';
+import { MissionStage } from '../model/mission-stage.model';
+import { NewMontant } from '../model/montants.model';
+import { Soutien } from '../model/soutien.model';
+import { User } from '../model/user.model';
+import { Document } from '../model/document.model';
 
-import {HttpClient} from '@angular/common/http';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {State} from '../enums/state.service';
-import {Cadre} from '../model/cadre.model';
-import {documents} from '../model/documents.model';
-import {DonneePro} from '../model/donnee-pro.model';
-import {MailMessage} from '../model/mailmessages.model';
-import {Manifestation} from '../model/manifestation.model';
-import {messages} from '../model/messages.model';
-import {MissionStage} from '../model/mission-stage.model';
-import {NewMontant} from '../model/montants.model';
-import {Soutien} from '../model/soutien.model';
-import {User} from '../model/user.model';
-import {Document} from '../model/document.model';
-
-import {Etablissement} from "../model/Etablissement.model";
-import {Budget} from "../model/Budget.model";
-import {Montant_par_labo} from "../model/Montant_par_labo.model";
-
-
-
+import { Etablissement } from '../model/Etablissement.model';
+import { Budget } from '../model/Budget.model';
+import { Montant_par_labo } from '../model/Montant_par_labo.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
-  private baseUrl = 'http://localhost:8000/admin';
+  private baseUrl = 'http://172.19.177.32:8080/admin';
+  //private baseUrl = 'http://localhost:8080/admin';
 
-  constructor(private httpClient: HttpClient) {
-  }
+  constructor(private httpClient: HttpClient) {}
 
   findUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.baseUrl + '/Users'}`);
@@ -98,7 +94,7 @@ export class AdminService {
 
   AcceptMStage(mStageId: number, params: MailMessage): Observable<number> {
     return this.httpClient.post<number>(
-      `${this.baseUrl + '/acceptstage/' + mStageId }`,
+      `${this.baseUrl + '/acceptstage/' + mStageId}`,
       params
     );
   }
@@ -310,7 +306,7 @@ export class AdminService {
         '/' +
         e14 +
         '/' +
-        e15 
+        e15
       }`
     );
   }
@@ -373,7 +369,9 @@ export class AdminService {
   }
 
   find_all_montant_par_labo(): Observable<Montant_par_labo[]> {
-    return this.httpClient.get<Montant_par_labo[]>(`${this.baseUrl + '/getmontant_par_labo'}`);
+    return this.httpClient.get<Montant_par_labo[]>(
+      `${this.baseUrl + '/getmontant_par_labo'}`
+    );
   }
 
   findRapport(donneId: number): Observable<any> {
