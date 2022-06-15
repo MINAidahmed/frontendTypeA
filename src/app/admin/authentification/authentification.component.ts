@@ -30,6 +30,7 @@ export class AuthentificationComponent implements OnInit {
             this.isAdmin = data;
             if (this.isAdmin == true) {
               this.isLogged = true;
+              this.setWithExpiry('key');
               localStorage.setItem('isLogged', `${this.isLogged}`);
               localStorage.setItem('isAdmin', `${this.isAdmin}`);
               this.router.navigate(['/admin/dashboard']);
@@ -44,5 +45,14 @@ export class AuthentificationComponent implements OnInit {
         this.erreur = 'Email ou mot de passe sont incorrect';
       }
     });
+  }
+
+  setWithExpiry(key) {
+    const now = new Date();
+    const item = {
+      value: key,
+      expiry: now.getTime() + 3550000,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
   }
 }
