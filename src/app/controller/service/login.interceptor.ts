@@ -38,6 +38,9 @@ export class InterceptorComponent implements OnInit {
     // compare the expiry time of the item with the current time
     if (now.getTime() > item.expiry) {
       localStorage.removeItem(key);
+      if (localStorage.getItem('isAdmin')) {
+        localStorage.removeItem('isAdmin');
+      }
       return null;
     }
     return item.value;

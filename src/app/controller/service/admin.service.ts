@@ -22,7 +22,7 @@ import { Montant_par_labo } from '../model/Montant_par_labo.model';
   providedIn: 'root',
 })
 export class AdminService {
-  private baseUrl = 'http://localhost:8000/admin';
+  private baseUrl = 'http://172.19.177.32:8080/admin';
   //private baseUrl = 'http://localhost:8080/admin';
 
   constructor(private httpClient: HttpClient) {}
@@ -394,27 +394,18 @@ export class AdminService {
     );
   }
   users_rapport(): Observable<Object> {
-    return this.httpClient.get(
-      `${this.baseUrl + '/users_rapport'}`,{
-
-        responseType: 'text' as 'json',
-      }
-    );
+    return this.httpClient.get(`${this.baseUrl + '/users_rapport'}`, {
+      responseType: 'text' as 'json',
+    });
   }
   users_sans_rapport(): Observable<Object> {
-    return this.httpClient.get(
-      `${this.baseUrl + '/users_sans_rapport'}`,{
-
-        responseType: 'text' as 'json',
-      }
-    );
+    return this.httpClient.get(`${this.baseUrl + '/users_sans_rapport'}`, {
+      responseType: 'text' as 'json',
+    });
   }
   liste_users(): Observable<Object> {
-    return this.httpClient.get(
-      `${this.baseUrl + '/liste_users'}`,{
-
-        responseType: 'text' as 'json',
-      }
-    );
+    return this.httpClient.get(`${this.baseUrl + '/liste_users'}`, {
+      responseType: 'text' as 'json',
+    });
   }
 }
