@@ -275,7 +275,8 @@ export class AdminService {
     e12: string,
     e13: string,
     e14: string,
-    e15: string
+    e15: string,
+    date:number
   ): Observable<string[]> {
     return this.httpClient.get<string[]>(
       `${
@@ -309,7 +310,9 @@ export class AdminService {
         '/' +
         e14 +
         '/' +
-        e15
+        e15 +
+          '/'+
+          date
       }`
     );
   }
@@ -326,7 +329,8 @@ export class AdminService {
     e9: string,
     e10: string,
     e11: string,
-    e12: string
+    e12: string,
+    date : number
   ): Observable<string[]> {
     return this.httpClient.get<string[]>(
       `${
@@ -354,7 +358,9 @@ export class AdminService {
         '/' +
         e11 +
         '/' +
-        e12
+        e12+
+        '/'+
+        date
       }`
     );
   }
@@ -374,6 +380,11 @@ export class AdminService {
   find_all_montant_par_labo(): Observable<Montant_par_labo[]> {
     return this.httpClient.get<Montant_par_labo[]>(
       `${this.baseUrl + '/getmontant_par_labo'}`
+    );
+  }
+  find_montant_par_labo_par_year(year : number): Observable<Montant_par_labo[]> {
+    return this.httpClient.get<Montant_par_labo[]>(
+      `${this.baseUrl + 'getmontant_par_labo par_year/'+year}`
     );
   }
 

@@ -15,73 +15,30 @@ export class DashboardComponent implements OnInit {
 
   liste_montant_number: number [] = [];
   nbrusers: number;
-
+  date: number;
   number: number;
-  montant_par_lab : Montant_par_labo [];
+  montant_par_lab: Montant_par_labo [];
   date_actuelle: Date = new Date();
   budget_annuel: number;
   budget_consommer: number;
-    budget_rest : number;
-    list_montant_mois : number[]= [];
-
+  budget_rest: number;
+  list_montant_mois: number[] = [];
+   mylineChart : Chart;
+   mylineChartt : Chart;
   ngOnInit() {
-
-this.adminservice.find_all_montant_par_labo().subscribe((elem)=>
-this.montant_par_lab=elem );
-    this.adminservice.get_statistic_etablissement("ENSA-M", "FSSM", "ENCG-M", "FMP-M", "FLSHM", "FSTG", "FSJES", "ENS-M", "FP Safi", "ENSA Safi", "EST Safi", "EST Essaouira","FSJESK","FLAM","ESTK").subscribe((Liste_montants_string) => {
-      Liste_montants_string.forEach(elem => {
-        if (elem != null) {
-          this.number = +elem;
-          this.liste_montant_number.push(this.number);
-        } else {
-          this.number = 0;
-          this.liste_montant_number.push(this.number);
-        }
-
-      })
-      this.graphbar(this.liste_montant_number);
-    })
-
-
-    this.adminservice.get_statistic_graph_mois("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY","AUGUST","SEPTEMBER","OCTOBER","NOVEMBER","DECEMBER").subscribe((Liste_montants_mois_string) => {
-
-      Liste_montants_mois_string.forEach(elem => {
-        if (elem != null) {
-          this.number = +elem;
-          this.list_montant_mois.push(this.number);
-        } else {
-          this.number = 0;
-          this.list_montant_mois.push(this.number);
-        }
-
-      })
-      this.graphmois(this.list_montant_mois);
-    })
-
-
-    this.adminservice.countusers().subscribe((elem) => {
-      this.nbrusers = elem;
-    })
-
-    this.adminservice.get_budget_annuelle_object(this.date_actuelle.getFullYear()).subscribe((elem) => {
-      this.budget_annuel = elem.montant;
-      this.adminservice.get_budget_comsommer(this.date_actuelle.getFullYear()).subscribe((element) => {
-        this.budget_consommer = element;
-
-        this.budget_rest=this.budget_annuel - this.budget_consommer;
-      })
-
-    })
-
-
+this.update(this.date_actuelle.getFullYear());
 
   }
-  graphmois(montant_mois: number []){
 
-    var myLineChart = new Chart('lineChart', {
+  graphmois(montant_mois: number []) {
+if(this.mylineChart){
+  this.mylineChart.destroy();
+}
+
+    this.mylineChart= new Chart('lineChart', {
       type: 'line',
       data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"," August","September","October","November"," December"],
+        labels: ["January", "February", "March", "April", "May", "June", "July", " August", "September", "October", "November", " December"],
         datasets: [{
           label: "Les dépences monsuel (DH) ",
           data: montant_mois,
@@ -99,13 +56,16 @@ this.montant_par_lab=elem );
 
 
   graphbar(numeros: number[]) {
+    if(this.mylineChartt){
+      this.mylineChartt.destroy();
+    }
 
-    var myChart = new Chart('myChart', {
+    this.mylineChartt=new Chart('myChart', {
 
       type: 'bar',
       data: {
 
-        labels: ["ENSA-M", "FSSM", "ENCG-M", "FMP-M", "FLSHM", "FSTG", "FSJES", "ENS-M", "FP Safi", "ENSA Safi", "EST Safi", "EST Essaouira","FSJESK","FLAM","ESTK"],
+        labels: ["ENSA-M", "FSSM", "ENCG-M", "FMP-M", "FLSHM", "FSTG", "FSJES", "ENS-M", "FP Safi", "ENSA Safi", "EST Safi", "EST Essaouira", "FSJESK", "FLAM", "ESTK"],
         datasets: [
           {
 
@@ -139,9 +99,62 @@ this.montant_par_lab=elem );
         },
       },
     });
-
-
   }
 
 
+  update(datee: number) {
+
+//MONTANTS PAR LABORATOIRE
+    this.adminservice.find_montant_par_labo_par_year(datee).subscribe((elem) =>
+      this.montant_par_lab = elem);
+// MONATNTS PAR ETABLISSMENT
+    this.adminservice.get_statistic_etablissement("ENSA-M", "FSSM", "ENCG-M", "FMP-M", "FLSHM", "FSTG", "FSJES", "ENS-M", "FP Safi", "ENSA Safi", "EST Safi", "EST Essaouira", "FSJESK", "FLAM", "ESTK", datee).subscribe((Liste_montants_string) => {
+      this.liste_montant_number = [];
+      Liste_montants_string.forEach(elem => {
+        if (elem != null) {
+          this.number = +elem;
+          this.liste_montant_number.push(this.number);
+        } else {
+          this.number = 0;
+          this.liste_montant_number.push(this.number);
+          console.log(this.liste_montant_number)
+        }
+
+      })
+
+      this.graphbar(this.liste_montant_number);
+    })
+
+//MONTANT PAR MOIS
+    this.adminservice.get_statistic_graph_mois("JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER", datee).subscribe((Liste_montants_mois_string) => {
+      this.list_montant_mois = [];
+      Liste_montants_mois_string.forEach(elem => {
+        if (elem != null) {
+          this.number = +elem;
+          this.list_montant_mois.push(this.number);
+        } else {
+          this.number = 0;
+          this.list_montant_mois.push(this.number);
+        }
+
+      })
+      this.graphmois(this.list_montant_mois);
+    })
+
+// NBR DE USERS
+    this.adminservice.countusers().subscribe((elem) => {
+      this.nbrusers = elem;
+    })
+//budget
+    this.adminservice.get_budget_annuelle_object(datee).subscribe((elem) => {
+      this.budget_annuel = elem.montant;
+      this.adminservice.get_budget_comsommer(datee).subscribe((element) => {
+        console.log(element)
+        this.budget_consommer = element;
+
+      })
+
+    })
+
+  }
 }

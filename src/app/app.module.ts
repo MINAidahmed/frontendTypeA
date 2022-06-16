@@ -67,6 +67,7 @@ import { InterceptorComponent } from './controller/service/login.interceptor';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
+    HeaderaComponent,
     ChoisirPostulerComponent,
     PostulerMissionComponent,
     PostulerManifestationComponent,
@@ -125,6 +126,7 @@ import { InterceptorComponent } from './controller/service/login.interceptor';
   providers: [
     AuthGuard,
     AuthGuardUser,
+    HeaderaComponent,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorComponent,

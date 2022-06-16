@@ -9,12 +9,14 @@ import { parseSelectorToR3Selector } from '@angular/compiler/src/core';
   styleUrls: ['./headera.component.css'],
 })
 export class HeaderaComponent implements OnInit {
+  numb : number;
   constructor(
     private router: Router,
     private allusersService: AllusersService
   ) {}
 
   ngOnInit(): void {}
+
 
   onLogoutAdmin() {
     this.allusersService.logoutUser().subscribe((data) => {

@@ -1,29 +1,39 @@
 <header class="navbar fixed-top bg-surface-primary border-bottom p-5" style="margin: 0;padding: 0">
   <div class="container-fluid">
     <div class="row align-content-center" style="width: -webkit-fill-available;">
-      <div class="col-md-10"></div>
-      <div class="col-md-2 float-end">
-
-
-        <div class=" text-sm-end">
-          <li class="nav-item dropdown nav-user">
-            <div class="nav-item dropdown">
-              <div class="mx-n1">
-                <a class="btn d-inline-flex btn-sm btn-neutral border-base mx-1" class="nav-link dropdown-toggle"
-                   id="navbarDropdownMenuLink" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false" style="color: #232323 ">
-                  <i class="fa-solid fa-user-pen" style=" color: #595959"></i> Connecté
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                  <a class="dropdown-item" (click)="onLogoutAdmin()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Deconnecté</a>
-                </div>
-              </div>
+      <div  class="col-lg-10">
+        <li class="nav-item dropdown nav-user" style="display: flex; justify-content: end; ">
+          <div class="nav-item dropdown" >
+            <a  class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="color: #232323 ">
+              Historique              </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" > 2023</a>
+              <a class="dropdown-item" > 2022</a>
             </div>
-          </li>
-        </div> <!-- Nav -->
-      </div>
-    </div>
 
+          </div>
+        </li>
+      </div>
+      <div  class="col-lg-2">
+
+        <li class="nav-item dropdown " style="display: flex; justify-content: end; ">
+          <div class="nav-item dropdown" >
+            <a  class="nav-link dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" style="color: #232323 ">
+              <i class="fa-solid fa-user-pen" style=" color: #595959; "></i> Connectée
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" (click)="onLogoutAdmin()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Deconnecté</a>
+            </div>
+
+          </div>
+        </li>
+      </div>
+
+    </div>
 
 
   </div>

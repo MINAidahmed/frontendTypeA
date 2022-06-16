@@ -1,6 +1,15 @@
+<div class="nav-item dropdown" >
+  <a  class="nav-link dropdown-toggle"
+      data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false" style="color: #232323 ">
+    Historique              </a>
+  <input [(ngModel)]="date" >
+  <button (click)="update(date)" >valider</button>
 
+</div>
 <main class="py-6 bg-surface-secondary">
   <div class="container">
+
     <div class="row g-6 mb-6">
       <div class="col-xl-4 col-sm-6 col-12">
         <div class="card shadow border-0">
