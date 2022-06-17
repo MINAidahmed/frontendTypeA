@@ -19,6 +19,8 @@ import { MailFormComponent } from '../mail-form/mail-form.component';
 })
 export class DetailManifComponent implements OnInit {
   id: number;
+  file: any;
+  fileUrl: any;
   manif: Manifestation;
   user: User;
   donnePro: DonneePro;
@@ -152,20 +154,9 @@ export class DetailManifComponent implements OnInit {
     this.adminService
       .exportNvmontantmanif(this.id)
       .subscribe((data: string) => {
-        if (data == 'erreur') {
-          Swal.fire(
-            'Impression',
-            'Erreur veuillez ressayer',
-            'error'
-          );
-        } else {
-          Swal.fire(
-            'Impression',
-            'Impression effectuée avec succès',
-            'success'
-          );
-          window.open(data);
-        }
+        this.file = new Blob([data], { type: 'application/pdf' });
+        this.fileUrl = URL.createObjectURL(this.file);
+        window.open(this.fileUrl);
       });
   }
 

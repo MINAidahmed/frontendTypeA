@@ -30,6 +30,8 @@ export class DetailDemandeComponent implements OnInit {
   documents: documents;
   ismStage: boolean = true;
   path: string;
+  file: any;
+  fileUrl: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -160,20 +162,9 @@ export class DetailDemandeComponent implements OnInit {
     this.adminService
       .exportNvmontantmission(this.id)
       .subscribe((data: string) => {
-        if (data == 'erreur') {
-          Swal.fire(
-            'Impression',
-            'Erreur veuillez ressayer',
-            'error'
-          );
-        } else {
-          Swal.fire(
-            'Impression',
-            'Impression effectuée avec succès',
-            'success'
-          );
-          window.open(data);
-        }
+        this.file = new Blob([data], { type: 'application/pdf' });
+        this.fileUrl = URL.createObjectURL(this.file);
+        window.open(this.fileUrl);
       });
   }
 
