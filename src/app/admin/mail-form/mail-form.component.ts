@@ -14,6 +14,8 @@ export class MailFormComponent implements OnInit {
   body: string =
     'Mme Hanane NEKOUA\nDIVISION RECHERCHE SCIENTIFIQUE\nPRÉSIDENCE UNIVERSITÉ CADI AYYAD\nBP 511, Av Moulay Abdellah, Marrakech\nTél : 05 24 43 48 13/14\nFax : 05 24 43 44 94\nCourrier : ha.nekoua@uca.ma';
   mssgsMail: MailMessage = new MailMessage();
+  file: any;
+  fileUrl: any;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -28,13 +30,17 @@ export class MailFormComponent implements OnInit {
       this.adminService
         .getLettreMission(this.data.id)
         .subscribe((pathdata: string) => {
-          this.mssgsMail.pathToAttachement = pathdata;
+          this.file = new Blob([pathdata], { type: 'application/pdf' });
+          this.fileUrl = URL.createObjectURL(this.file);
+          this.mssgsMail.pathToAttachement = this.fileUrl;
         });
     } else {
       this.adminService
         .getLettreManif(this.data.id)
         .subscribe((pathdata: string) => {
-          this.mssgsMail.pathToAttachement = pathdata;
+          this.file = new Blob([pathdata], { type: 'application/pdf' });
+          this.fileUrl = URL.createObjectURL(this.file);
+          this.mssgsMail.pathToAttachement = this.fileUrl;
         });
     }
   }

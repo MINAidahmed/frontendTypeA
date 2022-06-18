@@ -22,6 +22,7 @@ import { Montant_par_labo } from '../model/Montant_par_labo.model';
   providedIn: 'root',
 })
 export class AdminService {
+
 //  private baseUrl = 'http://172.19.177.32:8080/admin';
   private baseUrl = 'http://localhost:8000/admin';
 
@@ -146,19 +147,19 @@ export class AdminService {
   }
 
   getLettreMission(missionId: number): Observable<any> {
-    return this.httpClient.get<any>(
+    return this.httpClient.get(
       `${this.baseUrl + '/raportlettremission/' + missionId}`,
       {
-        responseType: 'text' as 'json',
+        responseType: 'arraybuffer',
       }
     );
   }
 
   getLettreManif(manifId: number): Observable<any> {
-    return this.httpClient.get<any>(
+    return this.httpClient.get(
       `${this.baseUrl + '/raportlettremanif/' + manifId}`,
       {
-        responseType: 'text' as 'json',
+        responseType: 'arraybuffer',
       }
     );
   }
@@ -215,7 +216,7 @@ export class AdminService {
       `${this.baseUrl + '/raportNVmontantmanif/' + id}`,
       {
         withCredentials: true,
-        responseType: 'text' as 'json',
+        responseType: 'arraybuffer',
       }
     );
   }
@@ -225,7 +226,7 @@ export class AdminService {
       `${this.baseUrl + '/raportNvmontantmis/' + id}`,
       {
         withCredentials: true,
-        responseType: 'text' as 'json',
+        responseType: 'arraybuffer',
       }
     );
   }
@@ -276,7 +277,7 @@ export class AdminService {
     e13: string,
     e14: string,
     e15: string,
-    date:number
+    date: number
   ): Observable<string[]> {
     return this.httpClient.get<string[]>(
       `${
@@ -311,8 +312,8 @@ export class AdminService {
         e14 +
         '/' +
         e15 +
-          '/'+
-          date
+        '/' +
+        date
       }`
     );
   }
@@ -330,7 +331,7 @@ export class AdminService {
     e10: string,
     e11: string,
     e12: string,
-    date : number
+    date: number
   ): Observable<string[]> {
     return this.httpClient.get<string[]>(
       `${
@@ -358,8 +359,8 @@ export class AdminService {
         '/' +
         e11 +
         '/' +
-        e12+
-        '/'+
+        e12 +
+        '/' +
         date
       }`
     );
@@ -382,9 +383,11 @@ export class AdminService {
       `${this.baseUrl + '/getmontant_par_labo'}`
     );
   }
-  find_montant_par_labo_par_year(year : number): Observable<Montant_par_labo[]> {
+  find_montant_par_labo_par_year(year: number): Observable<Montant_par_labo[]> {
     return this.httpClient.get<Montant_par_labo[]>(
+
       `${this.baseUrl + '/getmontant_par_labo_par_year/'+year}`
+
     );
   }
 
@@ -395,17 +398,19 @@ export class AdminService {
   }
   users_rapport(): Observable<Object> {
     return this.httpClient.get(`${this.baseUrl + '/users_rapport'}`, {
-      responseType: 'text' as 'json',
+      responseType: 'arraybuffer',
     });
   }
+
   users_sans_rapport(): Observable<Object> {
     return this.httpClient.get(`${this.baseUrl + '/users_sans_rapport'}`, {
-      responseType: 'text' as 'json',
+      responseType: 'arraybuffer',
     });
   }
+
   liste_users(): Observable<Object> {
     return this.httpClient.get(`${this.baseUrl + '/liste_users'}`, {
-      responseType: 'text' as 'json',
+      responseType: 'arraybuffer',
     });
   }
 }
