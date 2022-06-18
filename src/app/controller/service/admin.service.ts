@@ -22,8 +22,14 @@ import { Montant_par_labo } from '../model/Montant_par_labo.model';
   providedIn: 'root',
 })
 export class AdminService {
+<<<<<<< HEAD
   private baseUrl = 'http://172.19.177.32:8080/admin';
   //private baseUrl = 'http://localhost:8080/admin';
+=======
+
+//  private baseUrl = 'http://172.19.177.32:8080/admin';
+  private baseUrl = 'http://localhost:8000/admin';
+>>>>>>> f66019ae84313cbb6fb449b62894dfd76f88e863
 
   constructor(private httpClient: HttpClient) {}
 
@@ -384,7 +390,9 @@ export class AdminService {
   }
   find_montant_par_labo_par_year(year: number): Observable<Montant_par_labo[]> {
     return this.httpClient.get<Montant_par_labo[]>(
-      `${this.baseUrl + 'getmontant_par_labo par_year/' + year}`
+
+      `${this.baseUrl + '/getmontant_par_labo_par_year/'+year}`
+
     );
   }
 
@@ -398,11 +406,13 @@ export class AdminService {
       responseType: 'arraybuffer',
     });
   }
+
   users_sans_rapport(): Observable<Object> {
     return this.httpClient.get(`${this.baseUrl + '/users_sans_rapport'}`, {
       responseType: 'arraybuffer',
     });
   }
+
   liste_users(): Observable<Object> {
     return this.httpClient.get(`${this.baseUrl + '/liste_users'}`, {
       responseType: 'arraybuffer',

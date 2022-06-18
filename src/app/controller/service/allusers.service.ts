@@ -10,6 +10,7 @@ import { User } from '../model/user.model';
 export class AllusersService {
   private baseUrl = 'http://172.19.177.32:8080/allusers';
   //private baseUrl = 'http://localhost:8080/allusers';
+
   constructor(private httpClient: HttpClient) {}
 
   loginUser(user: User): Observable<Object> {
