@@ -22,8 +22,8 @@ import { Montant_par_labo } from '../model/Montant_par_labo.model';
   providedIn: 'root',
 })
 export class AdminService {
-  private baseUrl = 'http://172.19.177.32:8080/admin';
-  //private baseUrl = 'http://localhost:8080/admin';
+//  private baseUrl = 'http://172.19.177.32:8080/admin';
+  private baseUrl = 'http://localhost:8000/admin';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -384,7 +384,7 @@ export class AdminService {
   }
   find_montant_par_labo_par_year(year : number): Observable<Montant_par_labo[]> {
     return this.httpClient.get<Montant_par_labo[]>(
-      `${this.baseUrl + 'getmontant_par_labo par_year/'+year}`
+      `${this.baseUrl + '/getmontant_par_labo_par_year/'+year}`
     );
   }
 
