@@ -398,19 +398,17 @@ export class AdminService {
   }
   users_rapport(): Observable<Object> {
     return this.httpClient.get(`${this.baseUrl + '/users_rapport'}`, {
-      responseType: 'arraybuffer',
+      responseType: 'arraybuffer'
     });
   }
 
   users_sans_rapport(): Observable<Object> {
     return this.httpClient.get(`${this.baseUrl + '/users_sans_rapport'}`, {
-      responseType: 'arraybuffer',
+      responseType: 'arraybuffer'
     });
   }
 
-  liste_users(): Observable<Object> {
-    return this.httpClient.get(`${this.baseUrl + '/liste_users'}`, {
-      responseType: 'arraybuffer',
-    });
+  liste_users(): Observable<Object>{
+    return this.httpClient.get(`${this.baseUrl + '/liste_users'}`, {responseType: 'arraybuffer'});
   }
 }

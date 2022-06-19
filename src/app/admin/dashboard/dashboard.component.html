@@ -1,12 +1,12 @@
-<div class="nav-item dropdown" >
-  <a  class="nav-link dropdown-toggle"
-      data-toggle="dropdown"
-      aria-haspopup="true" aria-expanded="false" style="color: #232323 ">
-    Historique              </a>
-  <input [(ngModel)]="date" >
-  <button (click)="update(date)" >valider</button>
+<!--<div class="nav-item dropdown" >-->
+<!--  <a  class="nav-link dropdown-toggle"-->
+<!--      data-toggle="dropdown"-->
+<!--      aria-haspopup="true" aria-expanded="false" style="color: #232323 ">-->
+<!--    Historique              </a>-->
+<!--  <input [(ngModel)]="date" >-->
+<!--  <button (click)="update(date)" >valider</button>-->
 
-</div>
+<!--</div>-->
 <main class="py-6 bg-surface-secondary">
   <div class="container">
 
@@ -71,10 +71,27 @@
 
 
 
+<div class="container">
+
+  <div class="row height d-flex justify-content-center align-items-center">
+
+    <div class="col-md-8">
+
+      <div class="search">
+        <i class="fa fa-search"></i>
+        <input type="text" class="form-control" [(ngModel)]="date" placeholder="Entrer l'année souhaiter">
+        <button class="btn btn-primary" style="color: black;" (click)="update(date)">Search</button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
 
 
 <div id="kk">
-<canvas id="myChart" width="400" height="300"></canvas>
+  <canvas id="myChart" width="400" height="300"></canvas>
 </div>
 
 <br>
