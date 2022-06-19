@@ -40,7 +40,7 @@ if(this.mylineChart){
       data: {
         labels: ["January", "February", "March", "April", "May", "June", "July", " August", "September", "October", "November", " December"],
         datasets: [{
-          label: "Les dépences monsuel (DH) ",
+          label: "Les dépenses mensuelles (DH) ",
           data: montant_mois,
 
           borderWidth: 2
@@ -69,7 +69,7 @@ if(this.mylineChart){
         datasets: [
           {
 
-            label: 'Les montants par etablissement (DH) ',
+            label: 'Les montants par établissement (DH) ',
             data: numeros,
             backgroundColor: [
               'rgba(255, 99, 132, 0.2)',
@@ -105,8 +105,11 @@ if(this.mylineChart){
   update(datee: number) {
 
 //MONTANTS PAR LABORATOIRE
+
     this.adminservice.find_montant_par_labo_par_year(datee).subscribe((elem) =>
-      this.montant_par_lab = elem);
+    {
+      this.montant_par_lab = elem;
+    });
 // MONATNTS PAR ETABLISSMENT
     this.adminservice.get_statistic_etablissement("ENSA-M", "FSSM", "ENCG-M", "FMP-M", "FLSHM", "FSTG", "FSJES", "ENS-M", "FP Safi", "ENSA Safi", "EST Safi", "EST Essaouira", "FSJESK", "FLAM", "ESTK", datee).subscribe((Liste_montants_string) => {
       this.liste_montant_number = [];
@@ -117,7 +120,7 @@ if(this.mylineChart){
         } else {
           this.number = 0;
           this.liste_montant_number.push(this.number);
-          console.log(this.liste_montant_number)
+
         }
 
       })
@@ -147,10 +150,24 @@ if(this.mylineChart){
     })
 //budget
     this.adminservice.get_budget_annuelle_object(datee).subscribe((elem) => {
-      this.budget_annuel = elem.montant;
+      if(elem==null)
+      {
+        this.budget_annuel = 0;
+      }
+      else {
+        this.budget_annuel = elem.montant;
+      }
+
       this.adminservice.get_budget_comsommer(datee).subscribe((element) => {
-        console.log(element)
-        this.budget_consommer = element;
+        if(elem==null)
+        {
+          this.budget_consommer = 0;
+        }
+        else {
+          this.budget_consommer = element;
+        }
+
+
 
       })
 
