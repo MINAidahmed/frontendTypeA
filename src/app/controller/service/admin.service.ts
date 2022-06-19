@@ -22,9 +22,14 @@ import { Montant_par_labo } from '../model/Montant_par_labo.model';
   providedIn: 'root',
 })
 export class AdminService {
+<<<<<<< HEAD
+  private baseUrl = 'http://172.19.177.32:8080/admin';
+  //private baseUrl = 'http://localhost:8080/admin';
+=======
 
 //  private baseUrl = 'http://172.19.177.32:8080/admin';
   private baseUrl = 'http://localhost:8000/admin';
+>>>>>>> f66019ae84313cbb6fb449b62894dfd76f88e863
 
   constructor(private httpClient: HttpClient) {}
 
