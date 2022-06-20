@@ -38,4 +38,16 @@ export class HeaderComponent implements OnInit {
   goToLogin() {
     this.router.navigate(['/login']);
   }
+
+
+  onLogin():boolean{
+    this.allusers.loginUser(this.user).subscribe((x: any) => {
+      if(x===1){
+
+      }else{
+
+      }
+    })
+    return true;
+  }
 }

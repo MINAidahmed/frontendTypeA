@@ -38,7 +38,6 @@ const routes: Routes = [
       {path: 'header', component: HeaderComponent},
       {path: 'register', component: RegisterComponent},
       {path: 'login', component: LoginComponent},
-      {path: 'home', component: HomeComponent},
       {path: '', component: HomeComponent},
       {path: 'footer', component: FooterComponent},
       {path: 'contact', component: ContactComponent},
