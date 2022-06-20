@@ -9,4 +9,5 @@ export class User {
   password: string;
   telephone: string;
   donnePro : DonneePro;
+  gender: string;
 }

@@ -1,30 +1,100 @@
-<div class="card shadow border-0 mb-7">
-  <div class="card-header"><h5 class="mb-0">Demandes de Stage ou Mission</h5></div>
-  <div class="table-responsive">
-    <table class="table table-hover table-nowrap">
-      <thead class="thead-light">
-      <tr>
-        <th scope="col">Code Demande</th>
-        <th scope="col">Objet de mission</th>
-        <th scope="col">Date Debut</th>
-        <th scope="col">Date Fin</th>
-        <th scope="col">Status</th>
-        <th scope="col">Editer</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let mission of mStages" >
-        <td>{{mission.id}}</td>
-        <td> {{mission.objetMission}} </td>
-        <td> {{mission.dateDebut}}</td>
-        <td> {{mission.dateFin}}</td>
-        <td> {{mission.state}}</td>
-        <td class=" td text-center"><a class="btn btn-sm btn-neutral" (click)="viewDetails(mission.id)">Détails</a>
-        </td>
-      </tr>
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab label="Toutes les demandes">
 
-      </tbody>
-    </table>
-  </div>
+    <div class="card shadow border-0 mb-7">
+      <div class="card-header"><h5 class="mb-0">Demandes de Stage ou Mission</h5></div>
+      <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Code Demande</th>
+            <th scope="col">Objet de mission</th>
+            <th scope="col">Date Debut</th>
+            <th scope="col">Date Fin</th>
+            <th scope="col">Status</th>
+            <th class="text-center" scope="col">Editer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let mission of mStages" >
+            <td>{{mission.id}}</td>
+            <td> {{mission.objetMission}} </td>
+            <td> {{mission.dateDebut}}</td>
+            <td> {{mission.dateFin}}</td>
+            <td> {{mission.state}}</td>
+            <td class=" td text-center"><a class="btn btn-sm btn-neutral" (click)="viewDetails(mission.id)">Détails</a>
+            </td>
+          </tr>
 
-</div>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </mat-tab>
+  <mat-tab label="Demmandes Acceptées">
+    <div class="card shadow border-0 mb-7">
+      <div class="card-header"><h5 class="mb-0">Demandes de Stage ou Mission</h5></div>
+      <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Code Demande</th>
+            <th scope="col">Objet de mission</th>
+            <th scope="col">Date Debut</th>
+            <th scope="col">Date Fin</th>
+            <th scope="col">Status</th>
+            <th class="text-center" scope="col">Editer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let mission of mStagesA" >
+            <td>{{mission.id}}</td>
+            <td> {{mission.objetMission}} </td>
+            <td> {{mission.dateDebut}}</td>
+            <td> {{mission.dateFin}}</td>
+            <td> {{mission.state}}</td>
+            <td class=" td text-center"><a class="btn btn-sm btn-neutral" (click)="viewDetails(mission.id)">Détails</a>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </mat-tab>
+  <mat-tab label="Demandes Refusées">
+    <div class="card shadow border-0 mb-7">
+      <div class="card-header"><h5 class="mb-0">Demandes de Stage ou Mission</h5></div>
+      <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Code Demande</th>
+            <th scope="col">Objet de mission</th>
+            <th scope="col">Date Debut</th>
+            <th scope="col">Date Fin</th>
+            <th scope="col">Status</th>
+            <th class="text-center" scope="col">Editer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let mission of mStagesR" >
+            <td>{{mission.id}}</td>
+            <td> {{mission.objetMission}} </td>
+            <td> {{mission.dateDebut}}</td>
+            <td> {{mission.dateFin}}</td>
+            <td> {{mission.state}}</td>
+            <td class=" td text-center"><a class="btn btn-sm btn-neutral" (click)="viewDetails(mission.id)">Détails</a>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </mat-tab>
+</mat-tab-group>

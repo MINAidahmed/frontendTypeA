@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { State } from 'src/app/controller/enums/state.service';
 import { MissionStage } from 'src/app/controller/model/mission-stage.model';
 import { AdminService } from 'src/app/controller/service/admin.service';
 import { User } from '../../controller/model/user.model';
@@ -12,17 +13,32 @@ import { User } from '../../controller/model/user.model';
 })
 export class DemandesComponent implements OnInit {
   mStages: MissionStage[];
+  mStagesA: MissionStage[];
+  mStagesR: MissionStage[];
   user: User;
 
   constructor(private adminService: AdminService, private router: Router) {}
 
   ngOnInit(): void {
     this.getMStages();
+    this.getMStagesA();
+    this.getMStagesR();
   }
 
   private getMStages() {
-    this.adminService.getAllMStages().subscribe((data) => {
+    this.adminService.findAllStagesByState(State.IDLE).subscribe((data) => {
       this.mStages = data;
+    });
+  }
+
+  private getMStagesA() {
+    this.adminService.findAllStagesByState(State.APPROVED).subscribe((data) => {
+      this.mStagesA = data;
+    });
+  }
+  private getMStagesR() {
+    this.adminService.findAllStagesByState(State.REFUSED).subscribe((data) => {
+      this.mStagesR = data;
     });
   }
 

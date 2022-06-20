@@ -1,8 +1,9 @@
 export class documents {
-  filecin: File;
-  fileA: File;
-  fileB: File;
-  fileC: File;
-  fileD: File;
-  fileE: File;
+  filecin: any;
+  fileA: any;
+  fileB: any;
+  fileC: any;
+  fileD: any;
+  fileE: any;
+  fileF: any;
 }

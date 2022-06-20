@@ -7,4 +7,7 @@ export class Soutien {
   mFraisInscription: number;
   mHebergement: number;
   mAutre: number;
+  devise : string;
+  datederniersoutien : string;
+  montantderniersoutien : number
 }

@@ -15,22 +15,33 @@ export class HomeComponent implements OnInit {
   isLogged: boolean;
 
 
-
-  constructor(private router: Router, private allusers: AllusersService) {
+  constructor(private router: Router, private allusersService:AllusersService) {
     router.events.subscribe((val) => {
       this.isLogged = Boolean(localStorage.getItem('isLogged'));
     });
   }
 
-
   ngOnInit() {}
+
+
 
   home() {
     this.router.navigateByUrl('/contact');
   }
 
+  onLogin():boolean{
+    this.allusersService.loginUser(this.user).subscribe((x: any) => {
+      if(x===1){
+
+      }else{
+
+      }
+    })
+    return true;
+  }
+
   logoutUser() {
-    this.allusers.logoutUser().subscribe((data) => {
+    this.allusersService.logoutUser().subscribe((data) => {
       this.router.navigate(['/login']);
       localStorage.removeItem('isLogged');
     });
@@ -41,15 +52,5 @@ export class HomeComponent implements OnInit {
   }
 
 
-  onLogin():boolean{
-    this.allusers.loginUser(this.user).subscribe((x: any) => {
-      if(x===1){
 
-      }else{
-
-      }
-    })
-    return true;
-  }
 }
-

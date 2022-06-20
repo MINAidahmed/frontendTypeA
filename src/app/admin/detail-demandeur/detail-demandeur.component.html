@@ -31,6 +31,11 @@
                   <h3><label class="text">Entité Recherche : </label>
                     <label class="info"> {{donnepro.entiteRecherche}}</label></h3>
                 </div>
+                <div>
+                  <button id="rapport" type="button" class="btn  btn33" (click)="openFile()">
+                    <i class="fa fa-file"></i> Document 0
+                  </button>
+                </div>
               </div>
               <div class="col-lg-5 col-md-6 col-sm-12">
                 <div class="form-group">
@@ -47,12 +52,13 @@
                 </div>
                 <div class="form-group">
                   <h3><label class="text">Etablissement : </label>
-                    <label class="info"> {{donnepro.etablissement}}</label></h3>
+                    <label class="info"> {{donnepro.etablissement.nom}}</label></h3>
                 </div>
                 <div class="form-group">
                   <h3><label class="text">Responsable Entité: </label>
                     <label class="info"> {{donnepro.respoEntite}}</label></h3>
                 </div>
+               
               </div>
 
             </div>

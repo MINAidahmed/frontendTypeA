@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { State } from 'src/app/controller/enums/state.service';
+import { documents } from 'src/app/controller/model/documents.model';
 import { DonneePro } from 'src/app/controller/model/donnee-pro.model';
 import { Manifestation } from 'src/app/controller/model/manifestation.model';
 import { NewMontant } from 'src/app/controller/model/montants.model';
@@ -16,16 +19,20 @@ import { MailFormComponent } from '../mail-form/mail-form.component';
 })
 export class DetailManifComponent implements OnInit {
   id: number;
+  file: any;
+  fileUrl: any;
   manif: Manifestation;
   user: User;
   donnePro: DonneePro;
   soutien: Soutien;
   newMont: NewMontant;
-  dialog: any;
+  documents: documents;
+  ismStage: boolean = false;
   constructor(
     private route: ActivatedRoute,
     private adminService: AdminService,
-    private router: Router
+    private router: Router,
+    public dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -34,6 +41,8 @@ export class DetailManifComponent implements OnInit {
     this.user = new User();
     this.soutien = new Soutien();
     this.newMont = new NewMontant();
+    this.documents = new documents();
+
     this.adminService.getManifestationById(this.id).subscribe((manifdonne) => {
       this.manif = manifdonne;
     });
@@ -45,6 +54,43 @@ export class DetailManifComponent implements OnInit {
     });
     this.adminService.getSoutienByManifId(this.id).subscribe((soutiendata) => {
       this.soutien = soutiendata;
+    });
+    if (
+      this.manif.state == State.APPROVED ||
+      this.manif.state == State.REFUSED
+    ) {
+      (<HTMLInputElement>document.getElementById('btna')).disabled = true;
+      (<HTMLInputElement>document.getElementById('btnR')).disabled = true;
+    }
+    this.adminService.readDocsManif(this.id).subscribe((datadocs) => {
+      this.documents = datadocs;
+      if (this.documents.filecin === undefined) {
+        (<HTMLInputElement>document.getElementById('cinbtn')).disabled = true;
+      }
+      if (this.documents.fileA === undefined) {
+        (<HTMLInputElement>document.getElementById('document1btn')).disabled =
+          true;
+      }
+      if (this.documents.fileB === undefined) {
+        (<HTMLInputElement>document.getElementById('document2btn')).disabled =
+          true;
+      }
+      if (this.documents.fileC === undefined) {
+        (<HTMLInputElement>document.getElementById('document3btn')).disabled =
+          true;
+      }
+      if (this.documents.fileD === undefined) {
+        (<HTMLInputElement>document.getElementById('document4btn')).disabled =
+          true;
+      }
+      if (this.documents.fileE === undefined) {
+        (<HTMLInputElement>document.getElementById('document5btn')).disabled =
+          true;
+      }
+      if (this.documents.fileF === undefined) {
+        (<HTMLInputElement>document.getElementById('document6btn')).disabled =
+          true;
+      }
     });
   }
 
@@ -79,7 +125,7 @@ export class DetailManifComponent implements OnInit {
       data: {
         id: this.id,
         email: this.user.email,
-        type: this.manif,
+        type: this.ismStage,
       },
     });
   }
@@ -87,27 +133,60 @@ export class DetailManifComponent implements OnInit {
   onSave() {
     this.adminService
       .ajoutNewMontantM(this.id, this.newMont)
-      .subscribe((data) => {
-        (document.getElementById('actions') as HTMLInputElement).disabled =
-          false;
-        (document.getElementById('actions2') as HTMLInputElement).disabled =
-          false;
-        Swal.fire(
-          'Montants Sauvegarde',
-          'Montants sauvegarder avec success',
-          'success'
-        );
+      .subscribe((data: number) => {
+        if (data == 1) {
+          Swal.fire(
+            'Montants Sauvegarde',
+            'Montants sauvegardés avec succès',
+            'success'
+          );
+        } else {
+          Swal.fire(
+            'Montants Sauvegarde',
+            'Montants sont déja sauvegardés',
+            'error'
+          );
+        }
       });
   }
 
-
-  onclick()
-  {
-    this.adminService.exportNvmontantmanif(this.id).subscribe((data) => {
-      console.log(data);
-    });
+  onclick() {
+    this.adminService
+      .exportNvmontantmanif(this.id)
+      .subscribe((data: string) => {
+        this.file = new Blob([data], { type: 'application/pdf' });
+        this.fileUrl = URL.createObjectURL(this.file);
+        window.open(this.fileUrl);
+      });
   }
 
+  openFile1() {
+    window.open(this.documents.filecin);
+  }
+  openFile2() {
+    window.open(this.documents.fileA);
+  }
+  openFile3() {
+    window.open(this.documents.fileB);
+  }
+  openFile4() {
+    window.open(this.documents.fileC);
+  }
+  openFile5() {
+    window.open(this.documents.fileD);
+  }
+  openFile6() {
+    window.open(this.documents.fileE);
+  }
+  openFile7() {
+    window.open(this.documents.fileF);
+  }
 
-
+  sendMail() {
+    this.dialog.open(MailFormComponent, {
+      data: {
+        email: this.user.email,
+      },
+    });
+  }
 }

@@ -1,19 +1,14 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
-
-body {
-  background-color: #e5e5dc;
-  font-family: 'Open Sans', serif;
-  font-size: 14px
-}
-
-.container-fluid {
-  margin-top: 50px;
-  /*padding:0 40px;*/
-  /*width: 95%*/
+footer {
+  width: 100%;
 }
 
 .footer-copyright {
   margin-top: 13px
+}
+
+aside {
+  display: flex;
+  flex-direction: row;
 }
 
 a {
@@ -41,10 +36,17 @@ a {
   color: #55acee
 }
 
-.logo-footer{
+.logo-footer {
   color: #26495c;
 }
 
 .footer-copyright p {
   margin-top: 10px
+}
+
+
+@media screen and (max-width: 1200px) {
+  /*.container-fluid{*/
+  /*  display:none;*/
+  /*}*/
 }

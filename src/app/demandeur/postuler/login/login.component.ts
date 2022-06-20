@@ -26,12 +26,25 @@ export class LoginComponent {
         this.router.navigate(['/choisir-postuler']);
         this.isLogged = true;
         console.log(this.user.email);
+        this.setWithExpiry('key');
         localStorage.setItem('isLogged', `${this.isLogged}`);
       } else if (x == -3 || x == -1) {
-        this.erreur = 'Email ou mot de passe sont invalide';
+        this.erreur = 'Email ou mot de passe est invalide';
+      } else if (x == -4) {
+        this.erreur =
+          'Veuillez confirmer votre compte en cliquant sur le lien dans votre email';
       } else {
-        this.erreur = 'Email ou mot de passe sont incorrect';
+        this.erreur = 'Email ou mot de passe est incorrect';
       }
     });
+  }
+
+  setWithExpiry(key) {
+    const now = new Date();
+    const item = {
+      value: key,
+      expiry: now.getTime() + 3550000,
+    };
+    localStorage.setItem(key, JSON.stringify(item));
   }
 }

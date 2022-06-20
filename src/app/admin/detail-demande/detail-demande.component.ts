@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
+import { State } from 'src/app/controller/enums/state.service';
 import { Cadre } from 'src/app/controller/model/cadre.model';
+import { documents } from 'src/app/controller/model/documents.model';
 import { DonneePro } from 'src/app/controller/model/donnee-pro.model';
 import { MissionStage } from 'src/app/controller/model/mission-stage.model';
 import { NewMontant } from 'src/app/controller/model/montants.model';
@@ -25,8 +27,12 @@ export class DetailDemandeComponent implements OnInit {
   cadre: Cadre;
   soutien: Soutien;
   newMont: NewMontant;
+  documents: documents;
   ismStage: boolean = true;
   path: string;
+  file: any;
+  fileUrl: any;
+
   constructor(
     private route: ActivatedRoute,
     private adminService: AdminService,
@@ -41,6 +47,7 @@ export class DetailDemandeComponent implements OnInit {
     this.cadre = new Cadre();
     this.soutien = new Soutien();
     this.newMont = new NewMontant();
+    this.documents = new documents();
     this.adminService.getMissionStageById(this.id).subscribe((stage) => {
       this.mStage = stage;
     });
@@ -56,6 +63,43 @@ export class DetailDemandeComponent implements OnInit {
     this.adminService.getSoutienByMStage(this.id).subscribe((soutiendata) => {
       this.soutien = soutiendata;
     });
+    if (
+      this.mStage.state == State.APPROVED ||
+      this.mStage.state == State.REFUSED
+    ) {
+      (<HTMLInputElement>document.getElementById('btna')).disabled = true;
+      (<HTMLInputElement>document.getElementById('btnR')).disabled = true;
+    }
+    this.adminService.readDocsMStage(this.id).subscribe((datadocs) => {
+      this.documents = datadocs;
+      if (this.documents.filecin === undefined) {
+        (<HTMLInputElement>document.getElementById('cinbtn')).disabled = true;
+      }
+      if (this.documents.fileA === undefined) {
+        (<HTMLInputElement>document.getElementById('document1btn')).disabled =
+          true;
+      }
+      if (this.documents.fileB === undefined) {
+        (<HTMLInputElement>document.getElementById('document2btn')).disabled =
+          true;
+      }
+      if (this.documents.fileC === undefined) {
+        (<HTMLInputElement>document.getElementById('document3btn')).disabled =
+          true;
+      }
+      if (this.documents.fileD === undefined) {
+        (<HTMLInputElement>document.getElementById('document4btn')).disabled =
+          true;
+      }
+      if (this.documents.fileE === undefined) {
+        (<HTMLInputElement>document.getElementById('document5btn')).disabled =
+          true;
+      }
+      if (this.documents.fileF === undefined) {
+        (<HTMLInputElement>document.getElementById('document6btn')).disabled =
+          true;
+      }
+    });
   }
 
   refuseMStage() {
@@ -69,7 +113,7 @@ export class DetailDemandeComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.adminService.RefuseMStage(this.id).subscribe(() => {});
-        Swal.fire('Refuser', 'La demande a ete refuser ', 'success').then(
+        Swal.fire('Refuser', 'La demande a été refuser ', 'success').then(
           () => {
             this.router.navigate(['/demandes-Manif']);
           }
@@ -77,7 +121,7 @@ export class DetailDemandeComponent implements OnInit {
       } else {
         Swal.fire(
           'Annuler',
-          'La refusation de demande a ete annuler',
+          'La refusation de demande a été annuler',
           'success'
         );
       }
@@ -98,25 +142,59 @@ export class DetailDemandeComponent implements OnInit {
     this.adminService
       .ajoutNewMontantMS(this.id, this.newMont)
       .subscribe((data) => {
-        (document.getElementById('actions') as HTMLInputElement).disabled =
-          false;
-        (document.getElementById('actions2') as HTMLInputElement).disabled =
-          false;
-        Swal.fire(
-          'Montants Sauvegarde',
-          'Montants sauvegarder avec success',
-          'success'
-        );
+        if (data == 1) {
+          Swal.fire(
+            'Montants Sauvegarde',
+            'Montants sauvegardés avec succès',
+            'success'
+          );
+        } else {
+          Swal.fire(
+            'Montants Sauvegarde',
+            'Montats sont déja sauvegardés',
+            'error'
+          );
+        }
       });
   }
 
-
-  onclick()
-  {
-    this.adminService.exportNvmontantmission(this.id).subscribe((data) => {
-      console.log(data);
-    });
+  onclick() {
+    this.adminService
+      .exportNvmontantmission(this.id)
+      .subscribe((data: string) => {
+        this.file = new Blob([data], { type: 'application/pdf' });
+        this.fileUrl = URL.createObjectURL(this.file);
+        window.open(this.fileUrl);
+      });
   }
 
+  openFile1() {
+    window.open(this.documents.filecin);
+  }
+  openFile2() {
+    window.open(this.documents.fileA);
+  }
+  openFile3() {
+    window.open(this.documents.fileB);
+  }
+  openFile4() {
+    window.open(this.documents.fileC);
+  }
+  openFile5() {
+    window.open(this.documents.fileD);
+  }
+  openFile6() {
+    window.open(this.documents.fileE);
+  }
+  openFile7() {
+    window.open(this.documents.fileF);
+  }
 
+  sendMail() {
+    this.dialog.open(MailFormComponent, {
+      data: {
+        email: this.user.email,
+      },
+    });
+  }
 }

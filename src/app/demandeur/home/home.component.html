@@ -1,64 +1,57 @@
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
-
 <body>
 
 <div class="main">
-  <div class="navbar">
-    <div class="icon">
-      <img class="img" src="http://type-adev.uca.ma/assets/uca.png"></div>
 
-    <div class="menu">
-      <ul>
+  <div class="row">  <div class="nav-container">
+    <nav class="nav-checkbox">
+      <img class="img" src="http://type-adev.uca.ma/assets/uca.png">
+      <input id="tab-nav" type="checkbox" class="tab-nav" name="tabs">
+      <label for="tab-nav" class="tab-nav-label">Menu</label>
+      <ul class="tab-content">
         <li><a [routerLink]="['']">ACCUEIL</a></li>
-        <li> <a *ngIf="isLogged == false; else loggedin" routerLink="/login" class="nav-link" >POSTULER</a>
+        <li><a *ngIf="isLogged == false; else loggedin" routerLink="/login" class="nav-link">POSTULER</a>
           <ng-template #loggedin>
-            <a routerLink="/choisir-postuler" >POSTULER</a>
-          </ng-template></li>
+            <a routerLink="/choisir-postuler">POSTULER</a>
+          </ng-template>
+        </li>
+        <li><a routerLink="/historique">HISTORIQUE</a></li>
         <li><a routerLink="/contact">CONTACTER</a></li>
+        <li> <div class="search">
+          <ng-template #loginBtn>
+            <a>
+              <button class="btn" (click)="goToLogin()">S'IDENTIFIER</button>
+            </a>
+          </ng-template>
+
+        </div>
+          <div class="nav-item" *ngIf="isLogged == true; else loginBtn">
+            <a>
+              <button class="buttonn" (click)="logoutUser()">
+                Se déconnecter
+              </button>
+            </a>
+          </div>
+        </li>
       </ul>
-    </div>
-
-    <div class="search">
-      <!--            <ng-template #loginBtn>-->
-
-      <a>
-        <button class="btn" (click)="goToLogin()">S'IDENTIFIER</button>
-      </a>
-      <!--                    </ng-template>-->
-
-    </div>
-    <!--          <div class="nav-item"   *ngIf="isLogged == true; else loginBtn">-->
-    <!--            <div class="nav-item dropdown">-->
-    <!--              <a class="nav-link dropdown-toggle"  id="navbarDropdownMenuLink" data-toggle="dropdown"-->
-    <!--                  aria-expanded="false" (click)="goToLogin()"  style="color: #ff7200;padding-top: 10px;">-->
-    <!--               CONNECTÉ-->
-
-    <!--              </a>-->
-    <!--              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">-->
-    <!--                <a class="dropdown-item" (click)="logoutUser()"><i class="fa-solid fa-arrow-right-from-bracket"></i> Logout</a>-->
-    <!--              </div>-->
-    <!--            </div>-->
-    <!--          </div>-->
-
+    </nav>
   </div>
-  <div class="content">
+  </div>
+  <div class="row">  <div class="header-text">
     <h1>SOUTIEN TYPE A</h1>
     <p class="par">UCA: vous présente un soutien de type A reservé aux Enseignants Chercheurs et aux Doctorants
 
     </p>
+    <button class="cn"><a *ngIf="isLogged == false; else loggedin" routerLink="/login">Postuler</a></button>
 
-    <button class="cn"><a href="#">Postuler</a></button>
+    <ng-template #loggedin>
+      <button class="cn"><a routerLink="/choisir-postuler">Postuler</a></button>
+    </ng-template>
 
 
   </div>
+  </div>
 </div>
-
-<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
-</body>
-
-
 
 <div class="container text-center">
   <br>
@@ -68,71 +61,112 @@
     bénificiant d'un soutien Type A. </p>
 </div>
 
-
-
-<div class="container mt-5 mb-5 d-flex justify-content-center align-items-center">
-
-
-  <div class="card"  style="margin-right: 30px;" >
-    <div class="inner-card" > <img src="https://images.pexels.com/photos/1709003/pexels-photo-1709003.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"class="img-fluid rounded">
-      <div class="d-flex justify-content-between align-items-center mt-3 px-2">
-        <h3>Postuler pour une Manifestation </h3>
+<div class="mt-5 mb-5 " style="display:flex; justify-content:center; padding:10px 40px;">
+  <div class="row gx-3 justify-content-center">
+    <div class="col-lg-5">
+      <div class="card">
+        <div class="inner-card"><img
+          src="https://images.pexels.com/photos/1709003/pexels-photo-1709003.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+          class="img-fluid rounded">
+          <div class="d-flex justify-content-between align-items-center mt-3 px-2">
+            <h3>Postuler pour une Manifestation </h3>
+          </div>
+          <div class="mt-2 px-2"><p class="text-secondary">
+            Etant un enseignant chercheur ou un doctorant, l'université Cady Ayyad vous présente la possibilité de
+            bénificier d'un soutien pour une manifestation scientifique</p></div>
+          <div class="px-2">
+          </div>
+          <div class="px-2 mt-3">
+            <button class="btn btn-primary px-3" style="width: 140px;  justify-content: center">En savoir
+              plus
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="mt-2 px-2"> <p class="text-secondary">
-        Etant un enseignant chercheur ou un doctorant, l'université Cady Ayyad vous présente la possibilité de bénificier d'un soutien pour une manifestation scientifique</p> </div>
-      <div class="px-2">
+
+
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-5">
+      <div class="card">
+        <div class="inner-card"><img
+          src="https://images.pexels.com/photos/7112/woman-typing-writing-windows.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+          class="img-fluid rounded">
+          <div class="d-flex justify-content-between align-items-center mt-3 px-2">
+            <h3> Postuler pour une Mission ou un Stage</h3>
+          </div>
+          <div class="mt-2 px-2"><p class="text-secondary">
+            Etant un enseignant chercheur ou un doctorant, l'université Cady Ayyad vous présente la possibilité de
+            bénificier d'un soutien pour une mission ou un stage
+
+
+          </p></div>
+          <div class="px-2">
+          </div>
+          <div class="px-2 mt-3">
+            <button class="btn btn-primary px-3" style="width: 140px;justify-content: center">En savoir
+              plus
+            </button>
+          </div>
+        </div>
       </div>
-      <div class="px-2 mt-3"> <button class="btn btn-primary px-3" style="width: 140px; margin-left: 170px; justify-content: center">En savoir plus</button>  </div>
     </div>
   </div>
-  <div class="card" style="margin-left: 30px;">
-    <div class="inner-card"> <img src="https://images.pexels.com/photos/7112/woman-typing-writing-windows.jpg?auto=compress&cs=tinysrgb&dpr=2&w=500" class="img-fluid rounded" >
-      <div class="d-flex justify-content-between align-items-center mt-3 px-2">
-        <h3> Postuler pour une Mission ou un Stage</h3>
-      </div>
-      <div class="mt-2 px-2"> <p class="text-secondary">
-        Etant un enseignant chercheur ou un doctorant, l'université Cady Ayyad vous présente la possibilité de bénificier d'un soutien pour une mission ou un stage
+</div>
 
+<div style="padding: 4%">
+  <div class="jumbotron top-space" style="margin-top:0;">
+    <div class="row justify-content-center">
+      <div class="col-xl-3 mb-2">
+        <img src="http://www.uca.ma/public/files/IMG_0117-3.jpg" class="picture-left"></div>
+      <div class="col-xl-1"></div>
+      <div class="col-xl-8">
+        <div class="paragraph-right p-2">
+          <h2>Mot du président</h2>
+          <p> L’Université Cadi Ayyad (UCA) est l’une des universités publiques leaders à l’échelle nationale et
+            régionale.
+            Elle a veillé, depuis sa création en 1978, à assurer pleinement son rôle dans la création et la transmission
+            du
+            savoir, et à se démarquer dans la recherche et l’innovation. Au fil des années, elle s’est dotée d’autres
+            structures qui ont renforcé davantage le paysage de l’enseignement supérieur
 
-      </p> </div>
-      <div class="px-2">
+            Cadi Ayyad trace ses stratégies en harmonie avec les hautes orientations de Sa Majesté. Consciente de son
+            rôle
+            en tant qu’acteur primordial dans l’économie de la connaissance, l’université Cadi Ayyad est appelée à
+            répondre
+            aux attentes de la région et du pays. Elle est également amenée à s’adapter aux mutations d’un monde
+            globalisé
+            et régi par la technologie. Les actions que l’université a menées, en tenant compte de la complexité de ses
+            responsabilités, lui ont valu une reconnaissance nationale et internationale. C’est ainsi qu’elle a figuré
+            dans
+            les classements mondiaux les plus prestigieux.
+
+            L’Université Cadi Ayyad fête ses 40 ans d’existence, une occasion pour elle de retracer son historique, mais
+            aussi d’aborder son avenir.
+
+          </p></div>
       </div>
-      <div class="px-2 mt-3" > <button class="btn btn-primary px-3" style="width: 140px; margin-left: 170px; justify-content: center">En savoir plus</button>  </div>
     </div>
   </div>
-
 </div>
 
-
-<div  class="jumbotron top-space">
-  <div  class="div-categoryContainer">
-    <img src="http://www.uca.ma/public/files/IMG_0117-3.jpg"
-         class="picture-left">
-    <div  class="paragraph-right">
-      <h2 >Mot du président</h2>
-      <p > L’Université Cadi Ayyad (UCA) est l’une des universités publiques leaders à l’échelle nationale et régionale. Elle a veillé, depuis sa création en 1978, à assurer pleinement son rôle dans la création et la transmission du savoir, et à se démarquer dans la recherche et l’innovation. Au fil des années, elle s’est dotée d’autres structures qui ont renforcé davantage le paysage de l’enseignement supérieur
-
-        Cadi Ayyad trace ses stratégies en harmonie avec les hautes orientations de Sa Majesté. Consciente de son rôle en tant qu’acteur primordial dans l’économie de la connaissance, l’université Cadi Ayyad est appelée à répondre aux attentes de la région et du pays. Elle est également amenée à s’adapter aux mutations d’un monde globalisé et régi par la technologie. Les actions que l’université a menées, en tenant compte de la complexité de ses responsabilités, lui ont valu une reconnaissance nationale et internationale. C’est ainsi qu’elle a figuré dans les classements mondiaux les plus prestigieux.
-
-        L’Université Cadi Ayyad fête ses 40 ans d’existence, une occasion pour elle de retracer son historique, mais aussi d’aborder son avenir.
-
-      </p></div>
-  </div>
-</div>
 
 <div class="container1">
   <div id="mycarousel" class="carousel slide" data-ride="carousel" data-interval="3000">
     <ol class="carousel-indicators">
-      <li data-target="#mycarousel" data-slide-to="0"  class="active"></li>
+      <li data-target="#mycarousel" data-slide-to="0" class="active"></li>
       <li data-target="#mycarousel" data-slide-to="2"></li>
     </ol>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="https://www.infomediaire.net/wp-content/uploads/2017/06/cady-ayad.jpg" class="d-block w-100" alt="...">
+        <img src="https://www.infomediaire.net/wp-content/uploads/2017/06/cady-ayad.jpg" class="d-block w-100"
+             alt="...">
       </div>
 
       <div class="carousel-item">
-        <img src="https://images.pexels.com/photos/1709003/pexels-photo-1709003.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" class="d-block w-100" alt="...">
+        <img
+          src="https://images.pexels.com/photos/1709003/pexels-photo-1709003.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"
+          class="d-block w-100" alt="...">
       </div>
     </div>
     <a class="carousel-control-prev" href="#mycarousel" role="button" data-slide="prev">
@@ -149,3 +183,11 @@
     </a>
   </div>
 </div>
+
+<footer>
+  <app-footer></app-footer>
+</footer>
+
+<script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+
+</body>

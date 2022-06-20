@@ -47,74 +47,75 @@
   display: inline-block;
   padding: 0px 20px;
 }
-
-.btn1 {
-  background: #ff4157;
-  border: 1px solid #ff4157;
+.btn{
+  margin-right: 0.5rem !important;
+  width: 140px;
 }
 
-.section2_btn {
-  border-radius: 35px;
-  padding: 10px 12px;
-  width: 100%;
-  height: 52px;
-  color: #fff;
-  font-size: 16px;
-  margin-bottom: 42px;
-  -webkit-transition: all 0.5s;
-  -o-transition: all 0.5s;
-  -ms-transition: all 0.5s;
-  -moz-transition: all 0.5s;
-  transition: all 0.5s;
+.btn {
+  font-size: 0.875rem;
+  line-height: 1;
+  font-weight: 400;
+  padding: .7rem 1.5rem;
+  border-radius: 0.1275rem;
 }
 
-.btn11 {
-  background: transparent;
-  border: 2px solid #ff4157;
-  color: #ff4157;
+.padding{
+  display: flex;
+  justify-items: left;
+  justify-content: center;
+  margin-top:70px;
+  margin-bottom:100px;
+}
+.btn55{
+  color: #e14040;
+  border-color: #e4405f
+;
+}
+.btn55:hover{
+  background-color: rgba(239, 130, 142, 0.94);
+;
 }
 
-.btn22 {
-  background: transparent;
-  border: 2px solid #4285f4;
-  color: #4285f4;
+.paddingx{
+  display: flex;
+  justify-items: left;
+justify-content: center;
+  margin-bottom:50px;
 }
-
-.btn22:hover {
-  background: #4285f4;
-  color: #fff;
+.btn44{
+  color: #1ad571;
+  border-color: #40e448
+;
 }
-
-.btn33 {
-  background: transparent;
-  border: 2px solid #35d8a1;
-  color: #35d8a1;
+.btn44:hover{
+  background-color: rgba(130, 239, 139, 0.94);
+;
 }
-
-.btn33:hover {
-  background: #35d8a1;
-  color: #fff;
+.btn33{
+  color: #575756;
+  border-color: #7e7c7b
+;
 }
-
-.btn44 {
-  background: transparent;
-  border: 2px solid #efa44b;
-  color: #efa44b;
+.btn33:hover{
+  background-color: rgb(173, 171, 170);
+;
 }
-
-.btn44:hover {
-  background: #efa44b;
-  color: #fff;
+.btn22{
+  color: rgba(225, 152, 68, 0.98);
+  border-color: #d27b17
+;
 }
-
-
-.btn11:hover {
-  background: #ff4157;
-  color: #fff;
+.btn22:hover{
+  background-color: rgba(220, 181, 136, 0.98);
+;
 }
-/*.h3{*/
-/*  display: flex;*/
-/*  justify-content: center;*/
-/*  justify-items: center;*/
-/*  padding-top: 30px;*/
-/*}*/
+.btn11{
+  color: #0c95a4;
+  border-color: #3da7b4
+;
+}
+.btn11:hover{
+  background-color: rgb(179, 230, 236);
+;
+}

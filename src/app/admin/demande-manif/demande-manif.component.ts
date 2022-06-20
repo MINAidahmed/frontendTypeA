@@ -4,6 +4,7 @@ import { User } from '../../controller/model/user.model';
 import { AdminService } from '../../controller/service/admin.service';
 import { Router } from '@angular/router';
 import { Manifestation } from '../../controller/model/manifestation.model';
+import { State } from 'src/app/controller/enums/state.service';
 
 @Component({
   selector: 'app-demande-manif',
@@ -11,17 +12,31 @@ import { Manifestation } from '../../controller/model/manifestation.model';
   styleUrls: ['./demande-manif.component.css'],
 })
 export class DemandeManifComponent implements OnInit {
-  manifs: Manifestation[];
+  manifsIdle: Manifestation[];
+  manifsAccepted: Manifestation[];
+  manifsRefused: Manifestation[];
 
   constructor(private adminService: AdminService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getmanifs();
+    this.getIdlemanifs();
+    this.getAmanifs();
+    this.getRmanifs();
   }
 
-  private getmanifs() {
-    this.adminService.getAllManifs().subscribe((data) => {
-      this.manifs = data;
+  private getIdlemanifs() {
+    this.adminService.findAllManifsByState(State.IDLE).subscribe((data) => {
+      this.manifsIdle = data;
+    });
+  }
+  private getAmanifs() {
+    this.adminService.findAllManifsByState(State.APPROVED).subscribe((data) => {
+      this.manifsAccepted = data;
+    });
+  }
+  private getRmanifs() {
+    this.adminService.findAllManifsByState(State.REFUSED).subscribe((data) => {
+      this.manifsRefused = data;
     });
   }
 

@@ -21,11 +21,12 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {}
 
   addUser() {
+    /*     if (document.getElementById('confpass').innerHTML === this.user.password) { */
     this.allusersService.registerUser(this.user).subscribe((data: number) => {
       if (data == 1) {
         Swal.fire({
           title: 'Creation de compte',
-          text: 'Ce compte a été creer avec success',
+          text: 'Ce compte a été creer avec succès veuillez confrimer votre compte en cliquant sur le lien envoyer sur votre email',
           icon: 'success',
           confirmButtonText: 'OK',
         }).then((result) => {
@@ -42,10 +43,12 @@ export class RegisterComponent implements OnInit {
         this.erreur = 'Un ou plusieurs champs sont invalide veuillez verifier';
       }
     });
+    /*     } else {
+      this.erreur =
+        'les champs mot de passe et confirmation mot de passe doivent etre identique';
+    } */
   }
-
   onSubmit() {
-    console.log(this.user);
     this.addUser();
   }
 }

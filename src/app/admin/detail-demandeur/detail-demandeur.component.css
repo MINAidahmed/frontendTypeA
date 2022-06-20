@@ -1,0 +1,22 @@
+.btn33{
+    color: #575756;
+    border-color: #7e7c7b
+  ;
+  }
+  .btn33:hover{
+    background-color: rgb(173, 171, 170);
+  ;
+  }
+
+  .btn{
+    margin-right: 0.5rem !important;
+    width: 140px;
+  }
+  
+  .btn {
+    font-size: 0.875rem;
+    line-height: 1;
+    font-weight: 400;
+    padding: .7rem 1.5rem;
+    border-radius: 0.1275rem;
+  }

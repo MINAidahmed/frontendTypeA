@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Cadre } from '../model/cadre.model';
+import { Document } from '../model/document.model';
 import { documents } from '../model/documents.model';
 import { DonneePro } from '../model/donnee-pro.model';
 import { Manifestation } from '../model/manifestation.model';
@@ -14,7 +15,8 @@ import { User } from '../model/user.model';
   providedIn: 'root',
 })
 export class UserService {
-  private _baseUrl = 'http://localhost:8000/user';
+  private _baseUrl = 'http://172.19.177.32:8080/user';
+  //private _baseUrl = 'http://localhost:8080/user';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -35,6 +37,23 @@ export class UserService {
 
   saveDonnesPro(donne: DonneePro): Observable<Object> {
     return this.httpClient.post(`${this._baseUrl + '/adddonéespro'}`, donne, {
+      withCredentials: true,
+    });
+  }
+
+  addDonneProFile(donneId: number, doc: Document): Observable<Object> {
+    const formData = new FormData();
+    if (doc.file !== undefined) {
+      formData.append('fichier', doc.file, doc.file.name);
+    }
+    return this.httpClient.post<Object>(
+      `${this._baseUrl + '/add_documentD/' + donneId}`,
+      formData
+    );
+  }
+
+  updateDonnesPro(donne: DonneePro): Observable<Object> {
+    return this.httpClient.put(`${this._baseUrl + '/updatedonnepro'}`, donne, {
       withCredentials: true,
     });
   }
@@ -100,13 +119,28 @@ export class UserService {
 
   addFiles(mStageId: number, documents: documents): Observable<Object> {
     const formData = new FormData();
-    formData.append('filecin', documents.filecin, documents.filecin.name);
-    formData.append('fileA', documents.fileA, documents.fileA.name);
-    formData.append('fileB', documents.fileB, documents.fileB.name);
-    formData.append('fileC', documents.fileC, documents.fileC.name);
-    formData.append('fileD', documents.fileD, documents.fileD.name);
-    formData.append('fileE', documents.fileE, documents.fileE.name);
-    return this.httpClient.post(
+    if (documents.filecin !== undefined) {
+      formData.append('filecin', documents.filecin, documents.filecin.name);
+    }
+    if (documents.fileA !== undefined) {
+      formData.append('fileA', documents.fileA, documents.fileA.name);
+    }
+    if (documents.fileB !== undefined) {
+      formData.append('fileB', documents.fileB, documents.fileB.name);
+    }
+    if (documents.fileC !== undefined) {
+      formData.append('fileC', documents.fileC, documents.fileC.name);
+    }
+    if (documents.fileD !== undefined) {
+      formData.append('fileD', documents.fileD, documents.fileD.name);
+    }
+    if (documents.fileE !== undefined) {
+      formData.append('fileE', documents.fileE, documents.fileE.name);
+    }
+    if (documents.fileF !== undefined) {
+      formData.append('fileF', documents.fileF, documents.fileF.name);
+    }
+    return this.httpClient.post<Object>(
       `${this._baseUrl + '/add_documentMST/' + mStageId}`,
       formData
     );
@@ -114,13 +148,27 @@ export class UserService {
 
   addFilesManif(manifId: number, documents: documents): Observable<Object> {
     const formData = new FormData();
-    console.log(typeof documents.filecin.name);
-    formData.append('filecin', documents.filecin, documents.filecin.name);
-    formData.append('fileA', documents.fileA, documents.fileA.name);
-    formData.append('fileB', documents.fileB, documents.fileB.name);
-    formData.append('fileC', documents.fileC, documents.fileC.name);
-    formData.append('fileD', documents.fileD, documents.fileD.name);
-    formData.append('fileE', documents.fileE, documents.fileE.name);
+    if (documents.filecin !== undefined) {
+      formData.append('filecin', documents.filecin, documents.filecin.name);
+    }
+    if (documents.fileA !== undefined) {
+      formData.append('fileA', documents.fileA, documents.fileA.name);
+    }
+    if (documents.fileB !== undefined) {
+      formData.append('fileB', documents.fileB, documents.fileB.name);
+    }
+    if (documents.fileC !== undefined) {
+      formData.append('fileC', documents.fileC, documents.fileC.name);
+    }
+    if (documents.fileD !== undefined) {
+      formData.append('fileD', documents.fileD, documents.fileD.name);
+    }
+    if (documents.fileE !== undefined) {
+      formData.append('fileE', documents.fileE, documents.fileE.name);
+    }
+    if (documents.fileF !== undefined) {
+      formData.append('fileF', documents.fileF, documents.fileF.name);
+    }
     return this.httpClient.post(
       `${this._baseUrl + '/add_documentM/' + manifId}`,
       formData
@@ -150,13 +198,24 @@ export class UserService {
       { withCredentials: true }
     );
   }
-  generateReport(id: number): Observable<Object> {
-    return this.httpClient.get(`${this._baseUrl + '/raport/' + id}`, {
+  generateReport(id: number): Observable<any> {
+    return this.httpClient.get<any>(`${this._baseUrl + '/raport/' + id}`, {
       withCredentials: true,
+      responseType: 'text' as 'json',
     });
   }
-  exportReportMission(id: number): Observable<Object> {
-    return this.httpClient.get(`${this._baseUrl + '/raportmission/' + id}`, {
+  exportReportMission(id: number): Observable<any> {
+    return this.httpClient.get<any>(
+      `${this._baseUrl + '/raportmission/' + id}`,
+      {
+        withCredentials: true,
+        responseType: 'text' as 'json',
+      }
+    );
+  }
+
+  getThisUserId(): Observable<number> {
+    return this.httpClient.get<number>(`${this._baseUrl + '/getthisuserid'}`, {
       withCredentials: true,
     });
   }

@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { State } from '../enums/state.service';
 import { Cadre } from '../model/cadre.model';
+import { documents } from '../model/documents.model';
 import { DonneePro } from '../model/donnee-pro.model';
 import { MailMessage } from '../model/mailmessages.model';
 import { Manifestation } from '../model/manifestation.model';
@@ -10,17 +12,30 @@ import { MissionStage } from '../model/mission-stage.model';
 import { NewMontant } from '../model/montants.model';
 import { Soutien } from '../model/soutien.model';
 import { User } from '../model/user.model';
+import { Document } from '../model/document.model';
+
+import { Etablissement } from '../model/Etablissement.model';
+import { Budget } from '../model/Budget.model';
+import { Montant_par_labo } from '../model/Montant_par_labo.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AdminService {
+
+//  private baseUrl = 'http://172.19.177.32:8080/admin';
   private baseUrl = 'http://localhost:8000/admin';
 
   constructor(private httpClient: HttpClient) {}
 
   findUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(`${this.baseUrl + '/Users'}`);
+  }
+  findUsers_rap(): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.baseUrl + '/usersrap'}`);
+  }
+  findUsers_sans_rap(): Observable<User[]> {
+    return this.httpClient.get<User[]>(`${this.baseUrl + '/users_sans_rap'}`);
   }
 
   findByNom(name: string): Observable<Object> {
@@ -40,6 +55,7 @@ export class AdminService {
   getAllMStages(): Observable<MissionStage[]> {
     return this.httpClient.get<MissionStage[]>(`${this.baseUrl + '/missions'}`);
   }
+
   getAllManifs(): Observable<Manifestation[]> {
     return this.httpClient.get<Manifestation[]>(
       `${this.baseUrl + '/manifestations'}`
@@ -77,6 +93,13 @@ export class AdminService {
   RefuseMStage(mStageId: number): Observable<number> {
     return this.httpClient.get<number>(
       `${this.baseUrl + '/refusestage/' + mStageId}`
+    );
+  }
+
+  AcceptMStage(mStageId: number, params: MailMessage): Observable<number> {
+    return this.httpClient.post<number>(
+      `${this.baseUrl + '/acceptstage/' + mStageId}`,
+      params
     );
   }
 
@@ -123,15 +146,21 @@ export class AdminService {
     );
   }
 
-  getLettreMission(missionId: number): Observable<string> {
-    return this.httpClient.get<string>(
-      `${this.baseUrl + '/raportlettremission/' + missionId}`
+  getLettreMission(missionId: number): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl + '/raportlettremission/' + missionId}`,
+      {
+        responseType: 'arraybuffer',
+      }
     );
   }
 
-  getLettreManif(manifId: number): Observable<string> {
-    return this.httpClient.get<string>(
-      `${this.baseUrl + '/raportlettremanif/' + manifId}`
+  getLettreManif(manifId: number): Observable<any> {
+    return this.httpClient.get(
+      `${this.baseUrl + '/raportlettremanif/' + manifId}`,
+      {
+        responseType: 'arraybuffer',
+      }
     );
   }
 
@@ -155,9 +184,20 @@ export class AdminService {
     );
   }
 
+  save_budget(budget: Budget): Observable<Object> {
+    return this.httpClient.post(`${this.baseUrl + '/save_budget'}`, budget);
+  }
+
   manifRefused(mStageId: number): Observable<number> {
     return this.httpClient.get<number>(
       `${this.baseUrl + '/refusemanif/' + mStageId}`
+    );
+  }
+
+  AcceptManif(manifId: number, params: MailMessage): Observable<number> {
+    return this.httpClient.post<number>(
+      `${this.baseUrl + '/acceptmanif/' + manifId}`,
+      params
     );
   }
 
@@ -167,16 +207,208 @@ export class AdminService {
     );
   }
 
+  countusers(): Observable<number> {
+    return this.httpClient.get<number>(`${this.baseUrl + '/countusers'}`);
+  }
+
   exportNvmontantmanif(id: number): Observable<Object> {
-    return this.httpClient.get(`${this.baseUrl + '/raportNVmontantmanif/' + id}`, {
-      withCredentials: true,
-    });
+    return this.httpClient.get(
+      `${this.baseUrl + '/raportNVmontantmanif/' + id}`,
+      {
+        withCredentials: true,
+        responseType: 'arraybuffer',
+      }
+    );
   }
 
   exportNvmontantmission(id: number): Observable<Object> {
-    return this.httpClient.get(`${this.baseUrl + '/aportNvmontantmis/' + id}`, {
-      withCredentials: true,
+    return this.httpClient.get(
+      `${this.baseUrl + '/raportNvmontantmis/' + id}`,
+      {
+        withCredentials: true,
+        responseType: 'arraybuffer',
+      }
+    );
+  }
+
+  findAllStagesByState(state: State): Observable<MissionStage[]> {
+    return this.httpClient.get<MissionStage[]>(
+      `${this.baseUrl + '/findallmstages/' + state}`
+    );
+  }
+
+  findAllManifsByState(state: State): Observable<Manifestation[]> {
+    return this.httpClient.get<Manifestation[]>(
+      `${this.baseUrl + '/findallmanifs/' + state}`
+    );
+  }
+
+  readDocsMStage(mStageId: number): Observable<documents> {
+    return this.httpClient.get<documents>(
+      `${this.baseUrl + '/viewdocs/' + mStageId}`
+    );
+  }
+
+  readDocsManif(manifId: number): Observable<documents> {
+    return this.httpClient.get<documents>(
+      `${this.baseUrl + '/viewdocsmanif/' + manifId}`
+    );
+  }
+
+  getetablissement(etabId: number): Observable<Etablissement> {
+    return this.httpClient.get<Etablissement>(
+      `${this.baseUrl + '/getetab/' + etabId}`
+    );
+  }
+
+  get_statistic_etablissement(
+    etab: string,
+    e2: string,
+    e3: string,
+    e4: string,
+    e5: string,
+    e6: string,
+    e7: string,
+    e8: string,
+    e9: string,
+    e10: string,
+    e11: string,
+    e12: string,
+    e13: string,
+    e14: string,
+    e15: string,
+    date: number
+  ): Observable<string[]> {
+    return this.httpClient.get<string[]>(
+      `${
+        this.baseUrl +
+        '/statistic_graph_bar/' +
+        etab +
+        '/' +
+        e2 +
+        '/' +
+        e3 +
+        '/' +
+        e4 +
+        '/' +
+        e5 +
+        '/' +
+        e6 +
+        '/' +
+        e7 +
+        '/' +
+        e8 +
+        '/' +
+        e9 +
+        '/' +
+        e10 +
+        '/' +
+        e11 +
+        '/' +
+        e12 +
+        '/' +
+        e13 +
+        '/' +
+        e14 +
+        '/' +
+        e15 +
+        '/' +
+        date
+      }`
+    );
+  }
+
+  get_statistic_graph_mois(
+    mois: string,
+    e2: string,
+    e3: string,
+    e4: string,
+    e5: string,
+    e6: string,
+    e7: string,
+    e8: string,
+    e9: string,
+    e10: string,
+    e11: string,
+    e12: string,
+    date: number
+  ): Observable<string[]> {
+    return this.httpClient.get<string[]>(
+      `${
+        this.baseUrl +
+        '/statistic_graph_monsuel/' +
+        mois +
+        '/' +
+        e2 +
+        '/' +
+        e3 +
+        '/' +
+        e4 +
+        '/' +
+        e5 +
+        '/' +
+        e6 +
+        '/' +
+        e7 +
+        '/' +
+        e8 +
+        '/' +
+        e9 +
+        '/' +
+        e10 +
+        '/' +
+        e11 +
+        '/' +
+        e12 +
+        '/' +
+        date
+      }`
+    );
+  }
+
+  get_budget_annuelle_object(date: number): Observable<Budget> {
+    return this.httpClient.get<Budget>(
+      `${this.baseUrl + '/BudgetAnnuelle_object/' + date}`
+    );
+  }
+
+  get_budget_comsommer(date: number): Observable<number> {
+    return this.httpClient.get<number>(
+      `${this.baseUrl + '/budget_consommer/' + date}`
+    );
+  }
+
+  find_all_montant_par_labo(): Observable<Montant_par_labo[]> {
+    return this.httpClient.get<Montant_par_labo[]>(
+      `${this.baseUrl + '/getmontant_par_labo'}`
+    );
+  }
+  find_montant_par_labo_par_year(year: number): Observable<Montant_par_labo[]> {
+    return this.httpClient.get<Montant_par_labo[]>(
+
+      `${this.baseUrl + '/getmontant_par_labo_par_year/'+year}`
+
+    );
+  }
+
+  findRapport(donneId: number): Observable<any> {
+    return this.httpClient.get<any>(
+      `${this.baseUrl + '/viewlastdoc/' + donneId}`
+    );
+  }
+  users_rapport(): Observable<Object> {
+    return this.httpClient.get(`${this.baseUrl + '/users_rapport'}`, {
+      responseType: 'arraybuffer'
     });
   }
 
+  users_sans_rapport(): Observable<Object> {
+    return this.httpClient.get(`${this.baseUrl + '/users_sans_rapport'}`, {
+      responseType: 'arraybuffer'
+    });
+  }
+
+  liste_users(): Observable<Object>{
+    return this.httpClient.get(`${this.baseUrl + '/liste_users'}`, {responseType: 'arraybuffer'});
+  }
 }

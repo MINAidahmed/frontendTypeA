@@ -1,30 +1,132 @@
-<div class="card shadow border-0 mb-7">
-  <div class="card-header"><h5 class="mb-0">Demandes de Manifestation</h5></div>
-  <div class="table-responsive">
-    <table class="table table-hover table-nowrap">
-      <thead class="thead-light">
-      <tr>
-        <th scope="col">Code Demande</th>
-        <th scope="col">Demandeur</th>
-        <th scope="col">Date Création</th>
-        <th scope="col">Date Fin</th>
-        <th scope="col">Status</th>
-        <th scope="col">Editer</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let manif of manifs" >
-        <td>{{manif.id}}</td>
-        <td> {{manif.titreManifestation}} </td>
-        <td> {{manif.dateDebut}}</td>
-        <td> {{manif.dateFin}}</td>
-        <td> {{manif.state}}</td>
-        <td class="text-center"><a class="btn btn-sm btn-neutral" (click)="viewDetails(manif.id)">Détails</a>
-        </td>
-      </tr>
+<!--<div class="card shadow border-0 mb-7">-->
+<!--  <div class="card-header"><h5 class="mb-0">Demandes de Manifestation</h5></div>-->
+<!--  <div class="table-responsive">-->
+<!--    <table class="table table-hover table-nowrap">-->
+<!--      <thead class="thead-light">-->
+<!--      <tr>-->
+<!--        <th scope="col">Code Demande</th>-->
+<!--        <th scope="col">Demandeur</th>-->
+<!--        <th scope="col">Date Création</th>-->
+<!--        <th scope="col">Date Fin</th>-->
+<!--        <th scope="col">Status</th>-->
+<!--        <th class="text-center" scope="col">Editer</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr *ngFor="let manif of manifs" >-->
+<!--        <td>{{manif.id}}</td>-->
+<!--        <td> {{manif.titreManifestation}} </td>-->
+<!--        <td> {{manif.dateDebut}}</td>-->
+<!--        <td> {{manif.dateFin}}</td>-->
+<!--        <td> {{manif.state}}</td>-->
+<!--        <td class="text-center"><a class="btn btn-sm btn-neutral" (click)="viewDetails(manif.id)">Détails</a>-->
+<!--        </td>-->
+<!--      </tr>-->
 
-      </tbody>
-    </table>
-  </div>
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
 
-</div>
+<!--</div>-->
+
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab label="Toutes les demandes">
+    <div class="card shadow border-0 mb-7">
+      <div class="card-header"><h5 class="mb-0">Demandes de Manifestation</h5></div>
+      <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Code Demande</th>
+            <th scope="col">Demandeur</th>
+            <th scope="col">Date Création</th>
+            <th scope="col">Date Fin</th>
+            <th scope="col">Status</th>
+            <th class="text-center" scope="col">Editer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let manif of manifsIdle" >
+            <td>{{manif.id}}</td>
+            <td> {{manif.titreManifestation}} </td>
+            <td> {{manif.dateDebut}}</td>
+            <td> {{manif.dateFin}}</td>
+            <td> {{manif.state}}</td>
+            <td class="text-center"><a class="btn btn-sm btn-neutral" (click)="viewDetails(manif.id)">Détails</a>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </mat-tab>
+  <mat-tab label="Demmandes Acceptées">
+    <div class="card shadow border-0 mb-7">
+      <div class="card-header"><h5 class="mb-0">Demandes de Manifestation</h5></div>
+      <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Code Demande</th>
+            <th scope="col">Demandeur</th>
+            <th scope="col">Date Création</th>
+            <th scope="col">Date Fin</th>
+            <th scope="col">Status</th>
+            <th class="text-center" scope="col">Editer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let manif of manifsAccepted" >
+            <td>{{manif.id}}</td>
+            <td> {{manif.titreManifestation}} </td>
+            <td> {{manif.dateDebut}}</td>
+            <td> {{manif.dateFin}}</td>
+            <td> {{manif.state}}</td>
+            <td class="text-center"><a class="btn btn-sm btn-neutral" (click)="viewDetails(manif.id)">Détails</a>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </mat-tab>
+  <mat-tab label="Demandes Refusées">
+    <div class="card shadow border-0 mb-7">
+      <div class="card-header"><h5 class="mb-0">Demandes de Manifestation</h5></div>
+      <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Code Demande</th>
+            <th scope="col">Demandeur</th>
+            <th scope="col">Date Création</th>
+            <th scope="col">Date Fin</th>
+            <th scope="col">Status</th>
+            <th class="text-center" scope="col">Editer</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let manif of manifsRefused" >
+            <td>{{manif.id}}</td>
+            <td> {{manif.titreManifestation}} </td>
+            <td> {{manif.dateDebut}}</td>
+            <td> {{manif.dateFin}}</td>
+            <td> {{manif.state}}</td>
+            <td class="text-center"><a class="btn btn-sm btn-neutral" (click)="viewDetails(manif.id)">Détails</a>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </mat-tab>
+</mat-tab-group>

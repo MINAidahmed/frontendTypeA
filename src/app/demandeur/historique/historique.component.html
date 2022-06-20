@@ -1,39 +1,140 @@
-<div class="container rounded mt-5 bg-white p-md-5">
-  <div class="h2 font-weight-bold text-center">Historique Demandes</div>
-  <div class="table-responsive">
-  <button id="changebtn" class="changeBtn" (click)="changeList()">=> Manifestations <=</button>
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">Titre/Objet de demande</th>
-        <th scope="col">Date debut</th>
-        <th scope="col">Date Fin</th>
-        <th scope="col">Status</th>
-      </tr>
-      </thead>
-      <tbody>
-      <ng-template [ngIf]="!isManif">
-        <tr *ngFor = "let mStage of missionStages" class="bg-brown">
-          <td class="pl-lg-5 pl-md-3 tabletd">{{mStage.objetMission}}</td>
-          <td class="pt-2 tabletd">{{mStage.dateDebut}}</td>
-          <td class="pt-2 tabletd">{{mStage.dateFin}}</td>
-          <td id="theState" class="pt-2 tabletd">{{mStage.state}}</td>
-        </tr>
-      </ng-template>
+<app-header></app-header>
+<div class="container rounded mt-5  bg-white p-md-5">
+  <div class="h2 font-weight-bold mb-5 text-center">Historique Demandes</div>
+<!--  <div class="table-responsive">-->
+<!--    <button id="changebtn" class="changeBtn" (click)="manifestationBtn()">=> Manifestations <=</button>-->
+<!--    <button id="changebtn1" class="changeBtn1" (click)="missionStageBtn()">=> MissionStages <=</button>-->
+<!--    <table class="table">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <th scope="col">Titre/Objet de demande</th>-->
+<!--        <th scope="col">Date debut</th>-->
+<!--        <th scope="col">Date Fin</th>-->
+<!--        <th scope="col">Status</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <ng-template [ngIf]="!isManif">-->
+<!--        <tr *ngFor = "let mStage of missionStages" class="bg-brown">-->
+<!--          <td class="pl-lg-5 pl-md-3 tabletd">{{mStage.objetMission}}</td>-->
+<!--          <td class="pt-2 tabletd">{{mStage.dateDebut}}</td>-->
+<!--          <td class="pt-2 tabletd">{{mStage.dateFin}}</td>-->
+<!--          <td id="theState" class="pt-2 tabletd">{{mStage.state}}</td>-->
+<!--          <td id="imprimer" class="pt-2 tabletd" (click)="viewDetailsMStage(mStage.id)" ><button>Imprimer</button></td>-->
+<!--        </tr>-->
+<!--      </ng-template>-->
 
-      <ng-template [ngIf]="isManif">
-        <tr *ngFor = "let manif of manifestations" class="bg-brown">
-          <td class="pl-lg-5 pl-md-3 tabletd">{{manif.titreManifestation}}</td>
-          <td class="pt-2 tabletd">{{manif.dateDebut}}</td>
-          <td class="pt-2 tabletd">{{manif.dateFin}}</td>
-          <td class="pt-2 tabletd">{{manif.state}}</td>
-        </tr>
-      </ng-template>
-      
-      
-      
+<!--      <ng-template [ngIf]="isManif">-->
+<!--        <tr *ngFor = "let manif of manifestations" class="bg-brown">-->
+<!--          <td class="pl-lg-5 pl-md-3 tabletd">{{manif.titreManifestation}}</td>-->
+<!--          <td class="pt-2 tabletd">{{manif.dateDebut}}</td>-->
+<!--          <td class="pt-2 tabletd">{{manif.dateFin}}</td>-->
+<!--          <td class="pt-2 tabletd">{{manif.state}}</td>-->
+<!--          <td id="imprimere" class="pt-2 tabletd" (click)="viewDetailsManif(manif.id)" ><button>Imprimer</button></td>-->
+<!--        </tr>-->
+<!--      </ng-template>-->
 
-      </tbody>
-    </table>
-  </div>
+
+
+
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+<!--</div>-->
+<!--<app-footer></app-footer>-->
+
+<!--<div class="card shadow border-0 mb-7">-->
+<!--  <div class="card-header"><h5 class="mb-0">Demandes de Manifestation</h5></div>-->
+<!--  <div class="table-responsive">-->
+<!--    <table class="table table-hover table-nowrap">-->
+<!--      <thead class="thead-light">-->
+<!--      <tr>-->
+<!--        <th scope="col">Code Demande</th>-->
+<!--        <th scope="col">Demandeur</th>-->
+<!--        <th scope="col">Date Création</th>-->
+<!--        <th scope="col">Date Fin</th>-->
+<!--        <th scope="col">Status</th>-->
+<!--        <th class="text-center" scope="col">Editer</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr *ngFor="let manif of manifs" >-->
+<!--        <td>{{manif.id}}</td>-->
+<!--        <td> {{manif.titreManifestation}} </td>-->
+<!--        <td> {{manif.dateDebut}}</td>-->
+<!--        <td> {{manif.dateFin}}</td>-->
+<!--        <td> {{manif.state}}</td>-->
+<!--        <td class="text-center"><a class="btn btn-sm btn-neutral" (click)="viewDetails(manif.id)">Détails</a>-->
+<!--        </td>-->
+<!--      </tr>-->
+
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+
+<!--</div>-->
+
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab label="Demandes Mission ou Stage">
+    <div class="card shadow border-0 mb-7">
+      <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Objet de demande</th>
+            <th scope="col">Date debut</th>
+            <th scope="col">Date Fin</th>
+            <th scope="col">Status</th>
+            <th class="text-center" scope="col">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor = "let mStage of missionStages" >
+            <td>{{mStage.objetMission}}</td>
+            <td> {{mStage.dateDebut}} </td>
+            <td> {{mStage.dateFin}}</td>
+            <td> {{mStage.state}}</td>
+            <td class="text-center"><button class="btn btn-sm btn-neutral" (click)="viewDetailsMStage(mStage.id)">Imprimer</button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </mat-tab>
+  <mat-tab label="Demmandes Manifestation">
+    <div class="card shadow border-0 mb-7">
+      <div class="table-responsive">
+        <table class="table table-hover table-nowrap">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">Objet de demande</th>
+            <th scope="col">Date debut</th>
+            <th scope="col">Date Fin</th>
+            <th scope="col">Status</th>
+            <th class="text-center" scope="col">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <tr *ngFor = "let manif of manifestations">
+            <td>{{manif.titreManifestation}}</td>
+            <td> {{manif.dateDebut}} </td>
+            <td> {{manif.dateFin}}</td>
+            <td> {{manif.state}}</td>
+            <td class="text-center"><button class="btn btn-sm btn-neutral" (click)="viewDetailsManif(manif.id)">Imprimer</button>
+            </td>
+          </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+  </mat-tab>
+</mat-tab-group>
 </div>

@@ -8,7 +8,8 @@ import { User } from '../model/user.model';
   providedIn: 'root',
 })
 export class AllusersService {
-  private baseUrl = 'http://localhost:8000/allusers';
+  private baseUrl = 'http://172.19.177.32:8080/allusers';
+  //private baseUrl = 'http://localhost:8080/allusers';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -37,6 +38,4 @@ export class AllusersService {
   isAdmin(mail: string): Observable<Object> {
     return this.httpClient.get<boolean>(`${this.baseUrl + '/isadmin/' + mail}`);
   }
-
-
 }

@@ -49,12 +49,17 @@ import { MessageComponent } from './admin/message/message.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { DetailDemandeComponent } from './admin/detail-demande/detail-demande.component';
 import { DetailDemandeurComponent } from './admin/detail-demandeur/detail-demandeur.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { DemandeManifComponent } from './admin/demande-manif/demande-manif.component';
 import { DetailManifComponent } from './admin/detail-manif/detail-manif.component';
 import { AuthGuard } from './controller/service/authGuard/auth-guard.service';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MailFormComponent } from './admin/mail-form/mail-form.component';
+import { AuthGuardUser } from './controller/service/authGuard/auth-guarduser.service';
+import { NgChartsModule } from 'ng2-charts';
+import { MatTabsModule } from '@angular/material/tabs';
+import { BudgetComponent } from './admin/budget/budget.component';
+import { InterceptorComponent } from './controller/service/login.interceptor';
 
 @NgModule({
   declarations: [
@@ -62,6 +67,7 @@ import { MailFormComponent } from './admin/mail-form/mail-form.component';
     HeaderComponent,
     FooterComponent,
     HomeComponent,
+    HeaderaComponent,
     ChoisirPostulerComponent,
     PostulerMissionComponent,
     PostulerManifestationComponent,
@@ -84,10 +90,12 @@ import { MailFormComponent } from './admin/mail-form/mail-form.component';
     DemandeManifComponent,
     DetailManifComponent,
     MailFormComponent,
+    BudgetComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgChartsModule,
     BrowserAnimationsModule,
     MatMenuModule,
     RouterModule,
@@ -113,8 +121,18 @@ import { MailFormComponent } from './admin/mail-form/mail-form.component';
     MatSidenavModule,
     HttpClientModule,
     MatDialogModule,
+    MatTabsModule,
   ],
-  providers: [AuthGuard],
+  providers: [
+    AuthGuard,
+    AuthGuardUser,
+    HeaderaComponent,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorComponent,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

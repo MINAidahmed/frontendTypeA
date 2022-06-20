@@ -22,6 +22,7 @@ export class PostulerMissionComponent implements OnInit {
   selectedFileC = {} as HTMLInputElement;
   selectedFileD = {} as HTMLInputElement;
   selectedFileE = {} as HTMLInputElement;
+  selectedFileF = {} as HTMLInputElement;
 
   mstage: MissionStage = new MissionStage();
   cadre: Cadre = new Cadre();
@@ -39,25 +40,90 @@ export class PostulerMissionComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit() {
-    this.userService
-      .addAll(this.mstage, this.cadre, this.soutien)
-      .subscribe((x: any) => {
-        if (x == '-1') {
+    if (
+      this.soutien.isBenfTypeA == 'oui' &&
+      this.documents.fileF === undefined &&
+      (this.soutien.montantderniersoutien === undefined ||
+        this.soutien.datederniersoutien === undefined)
+    ) {
+      Swal.fire(
+        'Ajout de manifestation',
+        'Rapport ne peut pas etre vide si vous avez deja beinificez du soutien type A',
+        'error'
+      );
+    } else {
+      if (
+        this.documents.filecin !== undefined ||
+        this.documents.fileA !== undefined ||
+        this.documents.fileB !== undefined ||
+        this.documents.fileC !== undefined ||
+        this.documents.fileD !== undefined ||
+        this.documents.fileE !== undefined
+      ) {
+        /*  */
+        let newDateDebut = new Date(this.mstage.dateDebut);
+        let newDateFin = new Date(this.mstage.dateFin);
+        let newDateDepart = new Date(this.mstage.dateDepart);
+        let newDateRetour = new Date(this.mstage.dateRetour);
+        if (
+          newDateDebut.getTime() > newDateFin.getTime() ||
+          newDateDepart.getTime() > newDateRetour.getTime()
+        ) {
           Swal.fire(
-            'Ajout de mission',
-            'Un ou plusieurs champs sont invalide',
+            'Ajout de manifestation',
+            'Veuillez verifiez les dates saisies (debut/fin/depart/retour)',
             'error'
           );
         } else {
-          this.idm = x;
-          Swal.fire(
-            'Ajout de mission',
-            'Ajout est fait avec success',
-            'success'
-          );
-          this.userService.addFiles(x, this.documents).subscribe((data) => {});
+          this.userService
+            .addAll(this.mstage, this.cadre, this.soutien)
+            .subscribe((x: any) => {
+              if (x == '-1') {
+                Swal.fire(
+                  'Ajout de mission',
+                  'Un ou plusieurs champs sont invalide',
+                  'error'
+                );
+              } else if (x == '-2') {
+                Swal.fire(
+                  'Ajout de manifestation',
+                  'Vous pouvez pas postuler sans remplir vos données professionnelles',
+                  'error'
+                );
+              } else {
+                if (this.userService.addFiles(x, this.documents) == null) {
+                  Swal.fire(
+                    'Ajout de mission',
+                    'Veuillez remplire tous les fichier demander',
+                    'error'
+                  );
+                } else {
+                  this.userService
+                    .addFiles(x, this.documents)
+                    .subscribe((data) => {
+                      (<HTMLInputElement>(
+                        document.getElementById('impbtnS')
+                      )).disabled = false;
+
+                      Swal.fire(
+                        'Ajout de mission',
+                        'Ajout est fait avec succès',
+                        'success'
+                      );
+                    });
+                  this.idm = x;
+                }
+              }
+            });
         }
-      });
+      } else {
+        Swal.fire(
+          'Ajout de mission',
+          'Veuillez remplire tous les fichier demander',
+          'error'
+        );
+      }
+    }
   }
 
   onFileSelected(event: Event) {
@@ -107,9 +173,38 @@ export class PostulerMissionComponent implements OnInit {
       selectedFileE.name.toUpperCase();
     document.getElementById('doc5').style.color = 'red';
   }
+  onFileSelectedF(event: Event) {
+    let selectedFileF = (<HTMLInputElement>event.target).files![0];
+    this.documents.fileF = selectedFileF;
+    document.getElementById('doc6').textContent =
+      selectedFileF.name.toUpperCase();
+    document.getElementById('doc6').style.color = 'red';
+  }
+
   onSubmitt() {
-    this.userService.exportReportMission(this.idm).subscribe((data) => {
-      console.log(data);
+    this.userService.exportReportMission(this.idm).subscribe((data: string) => {
+      if (data === 'erreur') {
+        Swal.fire(
+          'Impression',
+          'L impression a échoué veuillez verifier que vous avez sauvegarder votre demande',
+          'error'
+        );
+      } else {
+        Swal.fire(
+          'Impression',
+          'L impression est faite avec succès',
+          'success'
+        );
+        window.open(data);
+      }
     });
+  }
+
+  show2() {
+    document.getElementById('div1').style.display = 'block';
+  }
+
+  show1() {
+    document.getElementById('div1').style.display = 'none';
   }
 }

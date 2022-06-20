@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
+import { Document } from 'src/app/controller/model/document.model';
 import { User } from 'src/app/controller/model/user.model';
 import { AdminService } from 'src/app/controller/service/admin.service';
 import { DonneePro } from '../../controller/model/donnee-pro.model';
@@ -13,7 +14,8 @@ import { UserService } from '../../controller/service/user.service';
 export class DetailDemandeurComponent implements OnInit {
   id: number;
   user: User;
-  donnepro: DonneePro;
+  donnepro: DonneePro = new DonneePro();
+  unfhichier: string;
   constructor(
     private route: ActivatedRoute,
     private adminService: AdminService
@@ -29,6 +31,17 @@ export class DetailDemandeurComponent implements OnInit {
     });
     this.adminService.getdonnepro(this.id).subscribe((dat) => {
       this.donnepro = dat;
+      this.adminService.findRapport(this.donnepro.id).subscribe((da) => {
+        this.unfhichier = da.fichier;
+        if (this.unfhichier === undefined) {
+          (<HTMLInputElement>document.getElementById('rapport')).disabled =
+            true;
+        }
+      });
     });
+  }
+
+  openFile() {
+    window.open(this.unfhichier);
   }
 }

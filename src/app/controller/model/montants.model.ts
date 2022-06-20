@@ -3,4 +3,5 @@ export class NewMontant {
   newmFraisInscription: number;
   newmHebergement: number;
   newMontant: number;
+  newautreMontant :number;
 }
