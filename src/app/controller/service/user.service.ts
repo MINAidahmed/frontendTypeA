@@ -15,8 +15,8 @@ import { User } from '../model/user.model';
   providedIn: 'root',
 })
 export class UserService {
-  private _baseUrl = 'http://172.19.177.32:8080/user';
-  //private _baseUrl = 'http://localhost:8080/user';
+  //private _baseUrl = 'http://172.19.177.32:8080/user';
+  private _baseUrl = 'http://localhost:8080/user';
 
   constructor(private httpClient: HttpClient) {}
 
@@ -199,19 +199,16 @@ export class UserService {
     );
   }
   generateReport(id: number): Observable<any> {
-    return this.httpClient.get<any>(`${this._baseUrl + '/raport/' + id}`, {
+    return this.httpClient.get(`${this._baseUrl + '/raport/' + id}`, {
       withCredentials: true,
-      responseType: 'text' as 'json',
+      responseType: 'arraybuffer',
     });
   }
   exportReportMission(id: number): Observable<any> {
-    return this.httpClient.get<any>(
-      `${this._baseUrl + '/raportmission/' + id}`,
-      {
-        withCredentials: true,
-        responseType: 'text' as 'json',
-      }
-    );
+    return this.httpClient.get(`${this._baseUrl + '/raportmission/' + id}`, {
+      withCredentials: true,
+      responseType: 'arraybuffer',
+    });
   }
 
   getThisUserId(): Observable<number> {

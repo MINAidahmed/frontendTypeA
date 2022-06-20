@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
   styleUrls: ['./historique.component.css'],
 })
 export class HistoriqueComponent implements OnInit {
+  file: any;
+  fileUrl: any;
   manifestations: Manifestation[];
   missionStages: MissionStage[];
   mStage: MissionStage = new MissionStage();
@@ -32,7 +34,6 @@ export class HistoriqueComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
     this.getManifs();
     this.getMStages();
   }
@@ -107,23 +108,17 @@ export class HistoriqueComponent implements OnInit {
 
   imprimerManif(id: number) {
     this.userService.generateReport(id).subscribe((data: string) => {
-      Swal.fire(
-        'Inmpression',
-        'L impression de la demande mission stage a ete fait avec success',
-        'success'
-      );
-      window.open(data);
+      this.file = new Blob([data], { type: 'application/pdf' });
+      this.fileUrl = URL.createObjectURL(this.file);
+      window.open(this.fileUrl);
     });
   }
 
   imprimerMStage(id: number) {
-    this.userService.exportReportMission(id).subscribe((data) => {
-      Swal.fire(
-        'Inmpression',
-        'L impression de la demande manifestation a ete fait avec success',
-        'success'
-      );
-      window.open(data);
+    this.userService.exportReportMission(id).subscribe((data: string) => {
+      this.file = new Blob([data], { type: 'application/pdf' });
+      this.fileUrl = URL.createObjectURL(this.file);
+      window.open(this.fileUrl);
     });
   }
 }

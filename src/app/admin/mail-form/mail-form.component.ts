@@ -29,7 +29,7 @@ export class MailFormComponent implements OnInit {
     if (this.data.type) {
       this.adminService
         .getLettreMission(this.data.id)
-        .subscribe((pathdata: string) => {
+        .subscribe((pathdata: any) => {
           this.file = new Blob([pathdata], { type: 'application/pdf' });
           this.fileUrl = URL.createObjectURL(this.file);
           this.mssgsMail.pathToAttachement = this.fileUrl;
@@ -37,7 +37,7 @@ export class MailFormComponent implements OnInit {
     } else {
       this.adminService
         .getLettreManif(this.data.id)
-        .subscribe((pathdata: string) => {
+        .subscribe((pathdata: any) => {
           this.file = new Blob([pathdata], { type: 'application/pdf' });
           this.fileUrl = URL.createObjectURL(this.file);
           this.mssgsMail.pathToAttachement = this.fileUrl;

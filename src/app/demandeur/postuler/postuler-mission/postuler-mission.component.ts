@@ -24,6 +24,8 @@ export class PostulerMissionComponent implements OnInit {
   selectedFileE = {} as HTMLInputElement;
   selectedFileF = {} as HTMLInputElement;
 
+  file: any;
+  fileUrl: any;
   mstage: MissionStage = new MissionStage();
   cadre: Cadre = new Cadre();
   soutien: Soutien = new Soutien();
@@ -183,20 +185,9 @@ export class PostulerMissionComponent implements OnInit {
 
   onSubmitt() {
     this.userService.exportReportMission(this.idm).subscribe((data: string) => {
-      if (data === 'erreur') {
-        Swal.fire(
-          'Impression',
-          'L impression a échoué veuillez verifier que vous avez sauvegarder votre demande',
-          'error'
-        );
-      } else {
-        Swal.fire(
-          'Impression',
-          'L impression est faite avec succès',
-          'success'
-        );
-        window.open(data);
-      }
+      this.file = new Blob([data], { type: 'application/pdf' });
+      this.fileUrl = URL.createObjectURL(this.file);
+      window.open(this.fileUrl);
     });
   }
 

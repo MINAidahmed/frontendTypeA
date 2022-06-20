@@ -20,6 +20,8 @@ export class PostulerManifestationComponent implements OnInit {
   selectedFileE = {} as HTMLInputElement;
   selectedFileF = {} as HTMLInputElement;
 
+  file: any;
+  fileUrl: any;
   manif: Manifestation = new Manifestation();
   soutien: Soutien = new Soutien();
   documents: documents = new documents();
@@ -164,22 +166,10 @@ export class PostulerManifestationComponent implements OnInit {
   }
 
   onSubmitt() {
-    this.userService.generateReport(this.id).subscribe((data) => {
-      if (data === 'erreur') {
-        Swal.fire(
-          'Impression',
-          'L impression a échoué veuillez verifier que vous avez sauvegarder votre demande',
-          'error'
-        );
-      } else {
-        (<HTMLInputElement>document.getElementById('impbtnM')).disabled = false;
-        Swal.fire(
-          'Impression',
-          'L impression est faite avec succès',
-          'success'
-        );
-        window.open(data);
-      }
+    this.userService.generateReport(this.id).subscribe((data: string) => {
+      this.file = new Blob([data], { type: 'application/pdf' });
+      this.fileUrl = URL.createObjectURL(this.file);
+      window.open(this.fileUrl);
     });
   }
 
